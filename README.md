@@ -3,52 +3,52 @@
 ---
  Name | Wolfram | Python
 :---:|:---|:---
-func|<code>f[x_]:=2 + x;f[2]</code>|<pre><code>def f(x):<br/>	return 2 + x<br/>f(2)<br/></code></pre>
-global|<code>Names["Global`*"]</code>|<code>globals()</code>
-print|<code>Print["Hello world"]</code>|<code>print("Hello world")</code>
-range|<code>Range[0,7,2]</code>|<code>range(0,7,2)</code>
+func|<pre>f[x_]:=2 + x;f[2]</pre>|<pre>def f(x):<br/>	return 2 + x<br/>f(2)<br/></pre>
+global|<pre>Names["Global`*"]</pre>|<pre>globals()</pre>
+print|<pre>Print["Hello world"]</pre>|<pre>print("Hello world")</pre>
+range|<pre>Range[0,7,2]</pre>|<pre>range(0,7,2)</pre>
 
 
 ## dict
 ---
  Name | Wolfram | Python
 :---:|:---|:---
-dict|<code><\|"a" -> 2, "b" -> 2, "c" -> 6\|></code>|<code>{"a": 2, "b": 2, "c": 6}</code>
-dict access|<code><\|"a" -> 2, "b" -> 2, "c" -> 6\|>["a"]</code>|<code>{"a": 2, "b": 2, "c": 6}["a"]</code>
+dict|<pre><\|"a" -> 2, "b" -> 2, "c" -> 6\|></pre>|<pre>{"a": 2, "b": 2, "c": 6}</pre>
+dict access|<pre><\|"a" -> 2, "b" -> 2, "c" -> 6\|>["a"]</pre>|<pre>{"a": 2, "b": 2, "c": 6}["a"]</pre>
 
 
 ## functional programming
 ---
  Name | Wolfram | Python
 :---:|:---|:---
-func nest|<code>NestList[f[#]&,2,3]</code>|<pre><code>def nest(f, x, times):<br/>    y = [x]<br/>    for i in range(times-1):<br/>        y.append(f(y[-1]))<br/>    return y<br/>nest(f,2,3)<br/></code></pre>
-map|<code>Function[x,2 + x]/@{2, 2, 6}</code>|<code>map(lambda x : 2 + x, [2, 2, 6])</code>
+func nest|<pre>NestList[f[#]&,2,3]</pre>|<pre>def nest(f, x, times):<br/>    y = [x]<br/>    for i in range(times-1):<br/>        y.append(f(y[-1]))<br/>    return y<br/>nest(f,2,3)<br/></pre>
+map|<pre>Function[x,2 + x]/@{2, 2, 6}</pre>|<pre>map(lambda x : 2 + x, [2, 2, 6])</pre>
 
 
 ## list
 ---
  Name | Wolfram | Python
 :---:|:---|:---
-list|<code>{2, 2, 6}</code>|<code>[2, 2, 6]</code>
-list append|<code>l={2, 2, 6}; AppendTo[l,2]; l</code>|<code>l=[2, 2, 6]; l.append(2); l</code>
-list length|<code>Length[{2, 2, 6}]</code>|<code>len([2, 2, 6])</code>
-list slicing|<code>{2, 2, 6}[[1;;;;2]]</code>|<code>[2, 2, 6][0::2]</code>
-list zip|<code>Transpose@{{"a", "b", "c"},{2, 2, 6}}</code>|<code>list(zip(["a", "b", "c"],[2, 2, 6]))</code>
-unique list|<code>DeleteDuplicates[{2, 2, 6}]</code>|<code>set([2, 2, 6])</code>
+list|<pre>{2, 2, 6}</pre>|<pre>[2, 2, 6]</pre>
+list append|<pre>l={2, 2, 6}; AppendTo[l,2]; l</pre>|<pre>l=[2, 2, 6]; l.append(2); l</pre>
+list length|<pre>Length[{2, 2, 6}]</pre>|<pre>len([2, 2, 6])</pre>
+list slicing|<pre>{2, 2, 6}[[1;;;;2]]</pre>|<pre>[2, 2, 6][0::2]</pre>
+list zip|<pre>Transpose@{{"a", "b", "c"},{2, 2, 6}}</pre>|<pre>list(zip(["a", "b", "c"],[2, 2, 6]))</pre>
+unique list|<pre>DeleteDuplicates[{2, 2, 6}]</pre>|<pre>set([2, 2, 6])</pre>
 
 
 ## procedural programming
 ---
  Name | Wolfram | Python
 :---:|:---|:---
-if|<code>If[3>2,Print["true"]]</code>|<pre><code>if 3 > 2:<br/>	print("true")<br/></code></pre>
+if|<pre>If[3>2,Print["true"]]</pre>|<pre>if 3 > 2:<br/>	print("true")<br/></pre>
 
 
 ## string
 ---
  Name | Wolfram | Python
 :---:|:---|:---
-string format|<code>StringForm["The values are x=`` and y=``.", 5, 10]</code>|<code>"The values are x={} and y={}.".format(5, 10)</code>
-string join|<code>StringRiffle[{2, 2, 6}, " "]</code>|<code>' '.join(["2", "2", "6"])</code>
+string format|<pre>StringForm["The values are x=`` and y=``.", 5, 10]</pre>|<pre>"The values are x={} and y={}.".format(5, 10)</pre>
+string join|<pre>StringRiffle[{2, 2, 6}, " "]</pre>|<pre>' '.join(["2", "2", "6"])</pre>
 
 

@@ -3,7 +3,7 @@
 ---
  Name | Wolfram | Python
 :---:|:---|:---
-func|<code>f[x_]:=2 + x;f[2]</code>|<pre><code>def f(x):<br>	return 2 + x<br>f(2)<br></code></pre>
+func|<code>f[x_]:=2 + x;f[2]</code>|<pre><code>def f(x):<br/>	return 2 + x<br/>f(2)<br/></code></pre>
 global|<code>Names["Global`*"]</code>|<code>globals()</code>
 print|<code>Print["Hello world"]</code>|<code>print("Hello world")</code>
 range|<code>Range[0,7,2]</code>|<code>range(0,7,2)</code>
@@ -21,7 +21,7 @@ dict access|<code><\|"a" -> 2, "b" -> 2, "c" -> 6\|>["a"]</code>|<code>{"a": 2, 
 ---
  Name | Wolfram | Python
 :---:|:---|:---
-func nest|<code>NestList[f[#]&,2,3]</code>|<pre><code>def nest(f, x, times):<br>    y = [x]<br>    for i in range(times-1):<br>        y.append(f(y[-1]))<br>    return y<br>nest(f,2,3)<br></code></pre>
+func nest|<code>NestList[f[#]&,2,3]</code>|<pre><code>def nest(f, x, times):<br/>    y = [x]<br/>    for i in range(times-1):<br/>        y.append(f(y[-1]))<br/>    return y<br/>nest(f,2,3)<br/></code></pre>
 map|<code>Function[x,2 + x]/@{2, 2, 6}</code>|<code>map(lambda x : 2 + x, [2, 2, 6])</code>
 
 
@@ -41,7 +41,7 @@ unique list|<code>DeleteDuplicates[{2, 2, 6}]</code>|<code>set([2, 2, 6])</code>
 ---
  Name | Wolfram | Python
 :---:|:---|:---
-if|<code>If[3>2,Print["true"]]</code>|<pre><code>if 3 > 2:<br>	print("true")<br></code></pre>
+if|<code>If[3>2,Print["true"]]</code>|<pre><code>if 3 > 2:<br/>	print("true")<br/></code></pre>
 
 
 ## string

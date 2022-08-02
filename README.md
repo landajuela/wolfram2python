@@ -3,7 +3,7 @@
 ---
  Name | Wolfram | Python
 :---:|:---|:---
-func|<pre>f[x_]:=2 + x;f[2]</pre>|<pre>def f(x):<br/>	return 2 + x<br/>f(2)<br/></pre>
+func|<pre>f[x_]:=2 + x;f[2]</pre>|<pre>def f(x):<br/>    return 2 + x<br/>f(2)<br/></pre>
 global|<pre>Names["Global`*"]</pre>|<pre>globals()</pre>
 print|<pre>Print["Hello world"]</pre>|<pre>print("Hello world")</pre>
 range|<pre>Range[0,7,2]</pre>|<pre>range(0,7,2)</pre>
@@ -41,7 +41,7 @@ unique list|<pre>DeleteDuplicates[{2, 2, 6}]</pre>|<pre>set([2, 2, 6])</pre>
 ---
  Name | Wolfram | Python
 :---:|:---|:---
-if|<pre>If[3>2,Print["true"]]</pre>|<pre>if 3 > 2:<br/>	print("true")<br/></pre>
+if|<pre>If[3>2,Print["true"]]</pre>|<pre>if 3 > 2:<br/>    print("true")<br/></pre>
 
 
 ## string

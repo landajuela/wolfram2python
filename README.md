@@ -33,12 +33,14 @@ dict values|<pre>Values[<\|"a" -> 2, "b" -> 2, "c" -> 6, "d" -> 7\|>]</pre>|<pre
 
 
 
+
 ## functional programming
 ---
  Name | Wolfram | Python
 :---:|:---|:---
 func nest|<pre>NestList[f[#]&,2,3]</pre>|<pre>def nest(f, x, times):<br/>    y = [x]<br/>    for i in range(times-1):<br/>        y.append(f(y[-1]))<br/>    return y<br/>nest(f,2,3)<br/></pre>
 map|<pre>Function[x,2 + x]/@{2, 2, 6, 7}</pre>|<pre>map(lambda x : 2 + x, [2, 2, 6, 7])</pre>
+filter|<pre>Function[x,2 + x]/@Select[{2, 2, 6, 7},#>4&]</pre>|<pre>list(map(lambda x : 2 + x, filter(lambda x : x > 4, [2, 2, 6, 7])))</pre>
 
 
 ## list

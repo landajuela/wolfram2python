@@ -44,11 +44,11 @@ list|<pre>{2, 2, 9, 6, 7}</pre>|<pre>[2, 2, 9, 6, 7]</pre>
 list append|<pre>l={2, 2, 9, 6, 7}; AppendTo[l,2]; l</pre>|<pre>l=[2, 2, 9, 6, 7]; l.append(2); l</pre>
 list length|<pre>Length[{2, 2, 9, 6, 7}]</pre>|<pre>len([2, 2, 9, 6, 7])</pre>
 list slicing|<pre>{2, 2, 9, 6, 7}[[1;;-1;;2]]</pre>|<pre>[2, 2, 9, 6, 7][0::2]</pre>
-list zip|<pre>Transpose@{{"a", "b", "c", "d", "e"},{2, 2, 9, 6, 7}}</pre>|<pre>list(zip(["a", "b", "c", "d", "e"],[2, 2, 9, 6, 7]))</pre>
+list zip|<pre>Transpose@{{"a", "b", "c", "d", "e"},{2, 2, 9, 6, 7}}</pre>|<pre>zip(["a", "b", "c", "d", "e"],[2, 2, 9, 6, 7])</pre>
 random sample|<pre>RandomSample[{1,2,3,4}, 2]</pre>|<pre>import random;random.sample([1,2,3,4], 2)</pre>
 reverse list|<pre>Reverse[{1,2,3}]</pre>|<pre>list(reversed([1,2,3]))</pre>
 sort|<pre>Sort[{2, 2, 9, 6, 7}]</pre>|<pre>sorted([2, 2, 9, 6, 7])</pre>
-unique list|<pre>DeleteDuplicates[{2, 2, 9, 6, 7}]</pre>|<pre>set([2, 2, 9, 6, 7])</pre>
+unique list|<pre>Sort[DeleteDuplicates[{2, 2, 9, 6, 7}]]</pre>|<pre>sorted(set([2, 2, 9, 6, 7]))</pre>
 
 ## Math
 

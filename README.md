@@ -2,7 +2,7 @@
 
 Welcome to **Wolfram ↔ Python**, a quick reference guide that mirrors common Wolfram Language constructs with their closest Python equivalents. Whether you’re coming from Mathematica and want to prototype logic in Python, or you’re a Pythonista looking to explore Wolfram’s powerful symbolic and functional paradigms, this cheat-sheet will help you translate ideas between the two ecosystems at a glance. Each section groups related operations—everything from basic functions and data structures to functional and procedural programming patterns—so you can jump straight to what you need. Enjoy seamless code translation and unleash the strengths of both languages!
 
-## general
+## General
 
  Name | Wolfram | Python
 :---:|:---|:---
@@ -12,7 +12,7 @@ global|<pre>Names["Global`*"]</pre>|<pre>globals()</pre>
 print|<pre>Print["Hello world"]</pre>|<pre>print("Hello world")</pre>
 range|<pre>Range[0,7,2]</pre>|<pre>range(0,7,2)</pre>
 
-## dict
+## Dict
 
  Name | Wolfram | Python
 :---:|:---|:---
@@ -23,7 +23,7 @@ keys list|<pre>Keys[<\|"a"->1, "b"->2\|>]</pre>|<pre>d = {"a": 1, "b": 2}; d.key
 remove key|<pre>KeyDrop[<\|"a" -> 1, "b" -> 2\|>, "a"]</pre>|<pre>d = {"a": 1, "b": 2}; del d["a"]; d</pre>
 values list|<pre>Values[<\|"a"->1, "b"->2\|>]</pre>|<pre>d = {"a": 1, "b": 2}; d.values()</pre>
 
-## functional programming
+## Functional programming
 
  Name | Wolfram | Python
 :---:|:---|:---
@@ -34,7 +34,7 @@ map|<pre>Function[x,2 + x]/@{2, 2, 9, 6, 7}</pre>|<pre>map(lambda x : 2 + x, [2,
 Partition / chunk|<pre>Partition[{1,2,3,4,5,6}, 2]</pre>|<pre>lst = [1,2,3,4,5,6]<br/>[lst[i:i+2] for i in range(0, len(lst), 2)]<br/></pre>
 Select / filter|<pre>Select[{1,2,3,4}, EvenQ]</pre>|<pre>filter(lambda x: x % 2 == 0, [1,2,3,4])</pre>
 
-## list
+## List
 
  Name | Wolfram | Python
 :---:|:---|:---
@@ -50,14 +50,14 @@ reverse list|<pre>Reverse[{1,2,3}]</pre>|<pre>list(reversed([1,2,3]))</pre>
 sort|<pre>Sort[{2, 2, 9, 6, 7}]</pre>|<pre>sorted([2, 2, 9, 6, 7])</pre>
 unique list|<pre>DeleteDuplicates[{2, 2, 9, 6, 7}]</pre>|<pre>set([2, 2, 9, 6, 7])</pre>
 
-## math
+## Math
 
  Name | Wolfram | Python
 :---:|:---|:---
 factorial|<pre>Factorial[7]</pre>|<pre>import math; math.factorial(7)</pre>
 square root|<pre>Sqrt[9]</pre>|<pre>import math; math.sqrt(9)</pre>
 
-## procedural programming
+## Procedural programming
 
  Name | Wolfram | Python
 :---:|:---|:---
@@ -66,7 +66,7 @@ for loop|<pre>Do[Print[i], {i, 1, 5}]</pre>|<pre>for i in range(1,6):<br/>    pr
 if|<pre>If[3>2,Print["true"]]</pre>|<pre>if 3 > 2:<br/>    print("true")<br/></pre>
 while loop|<pre>i = 0; While[i < 5, i++; Print[i]]</pre>|<pre>i = 0<br/>while i < 5:<br/>    i += 1<br/>    print(i)<br/></pre>
 
-## string
+## String
 
  Name | Wolfram | Python
 :---:|:---|:---
@@ -77,3 +77,6 @@ string length|<pre>StringLength["hello"]</pre>|<pre>len("hello")</pre>
 substring|<pre>StringTake["abcdef", {2,4}]</pre>|<pre>"abcdef"[1:4]</pre>
 uppercase|<pre>ToUpperCase["hello"]</pre>|<pre>"hello".upper()</pre>
 
+## Parity Test
+
+![Parity Test](images/parity_test.png)

@@ -7,10 +7,10 @@ Welcome to **Wolfram ↔ Python**, a quick reference guide that mirrors common W
  Name | Wolfram | Python
 :---:|:---|:---
 anonymous function|<pre>#^2&/@{2, 2, 9, 6, 7}</pre>|<pre>[x**2 for x in [2, 2, 9, 6, 7]]</pre>
-func|<pre>f[x_]:=2 + x;f[2]</pre>|<pre>def f(x):<br/>    return 2 + x<br/>f(2)<br/></pre>
+func|<pre>f[x_]:=x+2;f[2]</pre>|<pre>def f(x):<br/>	return 2 + x<br/>f(2)<br/></pre>
 global|<pre>Names["Global`*"]</pre>|<pre>globals()</pre>
 print|<pre>Print["Hello world"]</pre>|<pre>print("Hello world")</pre>
-range|<pre>Range[0,7,2]</pre>|<pre>range(0,7,2)</pre>
+range|<pre>{Range[0,7],Range[0,7,2]}</pre>|<pre>[range(0,7+1),range(0,7,2)]</pre>
 
 ## Dict
 
@@ -43,6 +43,7 @@ element position|<pre>Position[{a,b,c}, b][[1,1]]-1</pre>|<pre>[i for i,v in enu
 flatten nested|<pre>Flatten[{{1,2},{3,4}}]</pre>|<pre>import itertools<br/>list(itertools.chain.from_iterable([[1,2],[3,4]]))<br/></pre>
 list|<pre>{2, 2, 9, 6, 7}</pre>|<pre>[2, 2, 9, 6, 7]</pre>
 list append|<pre>l={2, 2, 9, 6, 7}; AppendTo[l,2]; l</pre>|<pre>l=[2, 2, 9, 6, 7]; l.append(2); l</pre>
+list comprehension|<pre>Table[i + 2, {i, Range[1,3]}]</pre>|<pre>[i + 2 for i in range(1, 3 + 1)]</pre>
 list length|<pre>Length[{2, 2, 9, 6, 7}]</pre>|<pre>len([2, 2, 9, 6, 7])</pre>
 list slicing|<pre>{2, 2, 9, 6, 7}[[1;;-1;;2]]</pre>|<pre>[2, 2, 9, 6, 7][0::2]</pre>
 list zip|<pre>Transpose@{{"a", "b", "c", "d", "e"},{2, 2, 9, 6, 7}}</pre>|<pre>zip(["a", "b", "c", "d", "e"],[2, 2, 9, 6, 7])</pre>
@@ -56,7 +57,9 @@ unique list|<pre>Sort[DeleteDuplicates[{2, 2, 9, 6, 7}]]</pre>|<pre>sorted(set([
  Name | Wolfram | Python
 :---:|:---|:---
 factorial|<pre>Factorial[7]</pre>|<pre>import math; math.factorial(7)</pre>
+mod|<pre>Mod[30,12]</pre>|<pre>30 % 12</pre>
 square root|<pre>Sqrt[9]</pre>|<pre>import math; math.sqrt(9)</pre>
+total|<pre>Total[{2, 2, 9, 6, 7}]</pre>|<pre>sum([2, 2, 9, 6, 7])</pre>
 
 ## Procedural programming
 

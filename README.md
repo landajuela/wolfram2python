@@ -64,6 +64,7 @@ unique list|<pre>Sort[DeleteDuplicates[{2, 2, 9, 6, 7}]]</pre>|<pre>sorted(set([
  Name | Wolfram | Python
 :---:|:---|:---
 factorial|<pre>Factorial[7]</pre>|<pre>import math; math.factorial(7)</pre>
+floor division|<pre>{Floor[(3 + 4) / 2], Floor[(-3 - 4) / 2]}</pre>|<pre>[(3 + 4) // 2, (-3 - 4) // 2]</pre>
 mod|<pre>Mod[30,12]</pre>|<pre>30 % 12</pre>
 square root|<pre>Sqrt[9]</pre>|<pre>import math; math.sqrt(9)</pre>
 total|<pre>Total[{2, 2, 9, 6, 7}]</pre>|<pre>sum([2, 2, 9, 6, 7])</pre>

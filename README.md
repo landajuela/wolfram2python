@@ -36,7 +36,7 @@ map & comprehension|<pre>True</pre>|<pre>list(map(lambda x: x**2, [1,2,3,4])) ==
 :---:|:---|:---
 Anonymous pure function|<pre>(#1 + #2)&[2,3]</pre>|<pre>(lambda a,b: a + b)(2,3)</pre>
 Fold (reduce)|<pre>Fold[Plus, 0, {1,2,3,4}]</pre>|<pre>from functools import reduce<br/>reduce(lambda a,b: a+b, [1,2,3,4], 0)<br/></pre>
-func nest|<pre>NestList[f[#]&,2,3]</pre>|<pre>def nest(f, x, times):<br/>    y = [x]<br/>    for i in range(times-1):<br/>        y.append(f(y[-1]))<br/>    return y<br/>nest(f,2,3)<br/></pre>
+func nest|<pre>NestList[#^2&,2,4]</pre>|<pre>from functools import reduce<br/>def nest_list(f, x, n):<br/>    return [reduce(lambda acc, _: f(acc), range(i), x) for i in range(n+1)]<br/>nest_list(lambda v: v**2, 2, 4)<br/></pre>
 map|<pre>Function[x,2 + x]/@{2, 2, 9, 6, 7}</pre>|<pre>map(lambda x : 2 + x, [2, 2, 9, 6, 7])</pre>
 Nest (reduce)|<pre>Nest[#/2&, 16., Log[2,16]]</pre>|<pre>from functools import reduce; import math<br/>reduce(lambda acc, _: acc / 2, range(int(math.log(16, 2))), 16)<br/></pre>
 Partition / chunk|<pre>Partition[{1,2,3,4,5,6}, 2]</pre>|<pre>lst = [1,2,3,4,5,6]<br/>[lst[i:i+2] for i in range(0, len(lst), 2)]<br/></pre>

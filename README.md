@@ -7,6 +7,7 @@ Welcome to **Wolfram ↔ Python**, a quick reference guide that mirrors common W
  Name | Wolfram | Python
 :---:|:---|:---
 anonymous function|<pre>#^2&/@{2, 2, 9, 6, 7}</pre>|<pre>[x**2 for x in [2, 2, 9, 6, 7]]</pre>
+counter|<pre>Counts[{1,1,1,1,1,2,2,2,4}]</pre>|<pre>from collections import Counter<br/>dict(Counter([1,1,1,1,1,2,2,2,4]))<br/></pre>
 func|<pre>f[x_]:=x+2;f[2]</pre>|<pre>def f(x):<br/>	return 2 + x<br/>f(2)<br/></pre>
 global|<pre>Names["Global`*"]</pre>|<pre>globals()</pre>
 print|<pre>Print["Hello world"]</pre>|<pre>print("Hello world")</pre>
@@ -34,7 +35,7 @@ map & comprehension|<pre>True</pre>|<pre>list(map(lambda x: x**2, [1,2,3,4])) ==
 
  Name | Wolfram | Python
 :---:|:---|:---
-Anonymous pure function|<pre>(#1 + #2)&[2,3]</pre>|<pre>(lambda a,b: a + b)(2,3)</pre>
+anonymous pure function|<pre>(#1 + #2)&[2,3]</pre>|<pre>(lambda a,b: a + b)(2,3)</pre>
 Fold (reduce)|<pre>Fold[Plus, 0, {1,2,3,4}]</pre>|<pre>from functools import reduce<br/>reduce(lambda a,b: a+b, [1,2,3,4], 0)<br/></pre>
 func nest|<pre>NestList[#^2&,2,4]</pre>|<pre>from functools import reduce<br/>def nest_list(f, x, n):<br/>    return [reduce(lambda acc, _: f(acc), range(i), x) for i in range(n+1)]<br/>nest_list(lambda v: v**2, 2, 4)<br/></pre>
 map|<pre>Function[x,2 + x]/@{2, 2, 9, 6, 7}</pre>|<pre>map(lambda x : 2 + x, [2, 2, 9, 6, 7])</pre>

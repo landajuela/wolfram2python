@@ -17,22 +17,13 @@ range|<pre>{Range[0,7],Range[0,7,2]}</pre>|<pre>[range(0,7+1),range(0,7,2)]</pre
 
  Name | Wolfram | Python
 :---:|:---|:---
-aa extract value|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];
-{df[[1,"b"]],df[[1,"b"]],df[[1]]["b"],df[[All,"b"]][1],df[[All,"b"]][[1]]}</pre>|<pre>import pandas as pd<br/>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>[df.loc[0, "b"], df.at[0, "b"], df.iloc[0]["b"], df["b"].iloc[0], df["b"].iat[0]]<br/></pre>
-add vectorized column|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];
-Normal[df[All, Append[#, "c" -> #a + #b] &]]</pre>|<pre>import pandas as pd<br/>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>df["c"] = df["a"] + df["b"]<br/>df<br/></pre>
-extract column|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];
-Normal[df[All, "a"]]</pre>|<pre>import pandas as pd<br/>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>list(df["a"].values)<br/></pre>
-extract multiple columns|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];
-Normal[df[All, {"a", "b"}]]</pre>|<pre>import pandas as pd<br/>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>df[["a", "b"]]<br/></pre>
-filter rows|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];
-Normal[Select[df, #a > 1 &]]</pre>|<pre>import pandas as pd<br/>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>df[df["a"] > 1]<br/></pre>
-method chaining|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];
-ds2 = Select[df, #a > 1 &];
-ds3 = ds2[All, Append[#, "d" -> #a * #b] &];
-Normal[ds3[All, {"a", "b", "d"}]]</pre>|<pre>import pandas as pd<br/>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>(df[df["a"] > 1]<br/>   .assign(d=lambda x: x["a"] * x["b"])<br/>   .loc[:, ["a", "b", "d"]])<br/></pre>
-transform via apply|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];
-Normal[df[All, Append[#, "a_sq" -> (#a)^2] &]]</pre>|<pre>import pandas as pd<br/>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>df["a_sq"] = df["a"].apply(lambda x: x**2)<br/>df<br/></pre>
+aa extract value|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>{df[[1,"b"]],df[[1,"b"]],df[[1]]["b"],df[[All,"b"]][1],df[[All,"b"]][[1]]}<br/></pre>|<pre>import pandas as pd<br/>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>[df.loc[0, "b"], df.at[0, "b"], df.iloc[0]["b"], df["b"].iloc[0], df["b"].iat[0]]<br/></pre>
+add vectorized column|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>Normal[df[All, Append[#, "c" -> #a + #b] &]]<br/></pre>|<pre>import pandas as pd<br/>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>df["c"] = df["a"] + df["b"]<br/>df<br/></pre>
+extract column|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>Normal[df[All, "a"]]<br/></pre>|<pre>import pandas as pd<br/>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>list(df["a"].values)<br/></pre>
+extract multiple columns|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>Normal[df[All, {"a", "b"}]]<br/></pre>|<pre>import pandas as pd<br/>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>df[["a", "b"]]<br/></pre>
+filter rows|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>Normal[Select[df, #a > 1 &]]<br/></pre>|<pre>import pandas as pd<br/>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>df[df["a"] > 1]<br/></pre>
+method chaining|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>ds2 = Select[df, #a > 1 &];<br/>ds3 = ds2[All, Append[#, "d" -> #a * #b] &];<br/>Normal[ds3[All, {"a", "b", "d"}]]<br/></pre>|<pre>import pandas as pd<br/>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>(df[df["a"] > 1]<br/>   .assign(d=lambda x: x["a"] * x["b"])<br/>   .loc[:, ["a", "b", "d"]])<br/></pre>
+transform via apply|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>Normal[df[All, Append[#, "a_sq" -> (#a)^2] &]]<br/></pre>|<pre>import pandas as pd<br/>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>df["a_sq"] = df["a"].apply(lambda x: x**2)<br/>df<br/></pre>
 
 ## Dict
 

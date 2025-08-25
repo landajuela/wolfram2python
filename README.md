@@ -76,6 +76,7 @@ unique list|<pre>Sort[DeleteDuplicates[{2, 2, 9, 6, 7}]]</pre>|<pre>sorted(set([
 
  Name | Wolfram | Python
 :---:|:---|:---
+accumulate|<pre>Accumulate[{1,2,3,4,5}]</pre>|<pre>from itertools import accumulate<br/>list(accumulate([1, 2, 3, 4, 5]))<br/></pre>
 factorial|<pre>Factorial[7]</pre>|<pre>import math; math.factorial(7)</pre>
 floor division|<pre>{Floor[(3 + 4) / 2], Floor[(-3 - 4) / 2]}</pre>|<pre>[(3 + 4) // 2, (-3 - 4) // 2]</pre>
 max|<pre>{Max[2,3], Max[{2,7,3}]}</pre>|<pre>[max(2,3), max([2,7,3])]</pre>
@@ -90,6 +91,7 @@ total|<pre>Total[{2, 2, 9, 6, 7}]</pre>|<pre>sum([2, 2, 9, 6, 7])</pre>
 break/exit loop|<pre>For[i = 1, i < 10, i++, If[i > 5, Break[]]]</pre>|<pre>for i in range(1,10):<br/>    if i > 5: break<br/></pre>
 for loop|<pre>Do[Print[i], {i, 1, 5}]</pre>|<pre>for i in range(1,6):<br/>    print(i)<br/></pre>
 if|<pre>If[3>2,Print["true"]]</pre>|<pre>if 3 > 2:<br/>    print("true")<br/></pre>
+if assign|<pre>If[3 < 2, 3, 2]</pre>|<pre>3 if 3 < 2 else 2</pre>
 while loop|<pre>i = 0; While[i < 5, i++; Print[i]]</pre>|<pre>i = 0<br/>while i < 5:<br/>    i += 1<br/>    print(i)<br/></pre>
 
 ## String

@@ -2,10 +2,13 @@
 
 Welcome to **Wolfram ↔ Python**, a quick reference guide that mirrors common Wolfram Language constructs with their closest Python equivalents. Whether you’re coming from Mathematica and want to prototype logic in Python, or you’re a Pythonista looking to explore Wolfram’s powerful symbolic and functional paradigms, this cheat-sheet will help you translate ideas between the two ecosystems at a glance. Each section groups related operations—everything from basic functions and data structures to functional and procedural programming patterns—so you can jump straight to what you need. Enjoy seamless code translation and unleash the strengths of both languages!
 
+![Parity](images/parity.png)
+
 ## General
 
  Name | Wolfram | Python
 :---:|:---|:---
+add to|<pre>i=2;i+=1;i</pre>|<pre>i=2;i+=1;i</pre>
 anonymous function|<pre>#^2&/@{2, 2, 9, 6, 7}</pre>|<pre>[x**2 for x in [2, 2, 9, 6, 7]]</pre>
 counter|<pre>Counts[{1,1,1,1,1,2,2,2,4}]</pre>|<pre>from collections import Counter<br/>dict(Counter([1,1,1,1,1,2,2,2,4]))<br/></pre>
 func|<pre>f[x_]:=x+2;f[2]</pre>|<pre>def f(x):<br/>	return 2 + x<br/>f(2)<br/></pre>
@@ -64,6 +67,7 @@ flatten nested|<pre>Flatten[{{1,2},{3,4}}]</pre>|<pre>import itertools<br/>list(
 list|<pre>{2, 2, 9, 6, 7}</pre>|<pre>[2, 2, 9, 6, 7]</pre>
 list append|<pre>l={2, 2, 9, 6, 7}; AppendTo[l,2]; l</pre>|<pre>l=[2, 2, 9, 6, 7]; l.append(2); l</pre>
 list comprehension|<pre>Table[i + 2, {i, Range[1,3]}]</pre>|<pre>[i + 2 for i in range(1, 3 + 1)]</pre>
+list join|<pre>{1,2}~Join~{3,4}</pre>|<pre>[1,2]+[3,4]</pre>
 list length|<pre>Length[{2, 2, 9, 6, 7}]</pre>|<pre>len([2, 2, 9, 6, 7])</pre>
 list slicing|<pre>{2, 2, 9, 6, 7}[[1;;-1;;2]]</pre>|<pre>[2, 2, 9, 6, 7][0::2]</pre>
 list zip|<pre>Transpose@{{"a", "b", "c", "d", "e"},{2, 2, 9, 6, 7}}</pre>|<pre>zip(["a", "b", "c", "d", "e"],[2, 2, 9, 6, 7])</pre>

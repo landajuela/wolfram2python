@@ -50,8 +50,7 @@ sort by value|<pre>d=<\|"b"->2,"a"->1,"c"->3\|>; Association@SortBy[Normal[d],#[
 map & comprehension|<pre>Map[#^2&,{1,2,3,4}]==Table[x^2,{x,{1,2,3,4}}]</pre>|<pre>list(map(lambda x: x**2, [1,2,3,4])) == [x**2 for x in [1,2,3,4]]</pre>
 filter & comprehension|<pre>Select[{1, 2, 3, 4}, (Mod[#,2]==0)&]==Table[If[Mod[x,2]==0,x,Nothing],{x,{1,2,3,4}}]</pre>|<pre>list(filter(lambda x: x % 2 == 0, [1,2,3,4])) == [x for x in [1,2,3,4] if x % 2 == 0]</pre>
 
-## Functional
-programming
+## Functional programming
 
  Name | Wolfram | Python
 :---:|:---|:---
@@ -64,7 +63,6 @@ select / filter
 comprehension|<pre>Table[If[Mod[x,2]==0,x,Nothing],{x,{1,2,3,4}}]</pre>|<pre>[x for x in [1,2,3,4] if x % 2 == 0]</pre>
 fold (reduce)|<pre>Fold[Plus, 0, {1,2,3,4}]</pre>|<pre>from functools import reduce<br/>reduce(lambda a,b: a+b, [1,2,3,4], 0)<br/></pre>
 nest (reduce)|<pre>Nest[#/2&, 16., Log[2,16]]</pre>|<pre>from functools import reduce; import math<br/>reduce(lambda acc, _: acc / 2, range(int(math.log(16, 2))), 16)<br/></pre>
-partition / chunk|<pre>Partition[{1,2,3,4,5,6}, 2]</pre>|<pre>lst = [1,2,3,4,5,6]<br/>[lst[i:i+2] for i in range(0, len(lst), 2)]<br/></pre>
 anonymous function|<pre>#^2&[2]</pre>|<pre>(lambda x: x**2)(2)</pre>
 anonymous function (2D)|<pre>(#1 + #2)&[1,2]</pre>|<pre>(lambda x, y: x + y)(1, 2)</pre>
 
@@ -92,6 +90,7 @@ stable out-of-place
 sort list|<pre>words = {"apple", "bat", "banana", "car"};<br/>SortBy[words,{−StringLength,−(Position[words,#][[1]]&)}]<br/></pre>|<pre>words = ["apple", "bat", "banana", "car"]<br/>sorted(words, key=len, reverse=True)<br/></pre>
 stable in-place
 sort list|<pre>words = {"apple", "bat", "banana", "car"};<br/>SortBy[words,{−StringLength,−(Position[words,#][[1]]&)}]<br/></pre>|<pre>words = ["apple", "bat", "banana", "car"]<br/>words.sort(key=len, reverse=True);words<br/></pre>
+partition / chunk|<pre>Partition[{1,2,3,4,5,6}, 2]</pre>|<pre>lst = [1,2,3,4,5,6]<br/>[lst[i:i+2] for i in range(0, len(lst), 2)]<br/></pre>
 
 ## List of dicts
 
@@ -119,8 +118,7 @@ floor division|<pre>{Floor[(3 + 4) / 2], Floor[(-3 - 4) / 2]}</pre>|<pre>[(3 + 4
 max|<pre>{Max[2,3], Max[{2,7,3}]}</pre>|<pre>[max(2,3), max([2,7,3])]</pre>
 accumulate|<pre>Accumulate[{1,2,3,4,5}]</pre>|<pre>from itertools import accumulate<br/>list(accumulate([1, 2, 3, 4, 5]))<br/></pre>
 
-## Procedural
-programming
+## Procedural programming
 
  Name | Wolfram | Python
 :---:|:---|:---

@@ -117,8 +117,7 @@ func nest|<pre>NestList[#^2&,2,4]</pre>|<pre>from functools import reduce<br/>de
 map|<pre>Map[2+#&,{2,2,9,6,7}]</pre>|<pre>map(lambda x : 2 + x, [2, 2, 9, 6, 7])</pre>
 map comprehension|<pre>Table[2 + x, {x, {2, 2, 9, 6, 7}}]</pre>|<pre>[2 + x for x in [2, 2, 9, 6, 7]]</pre>
 select/filter|<pre>Select[{1, 2, 3, 4}, (Mod[#,2]==0)&]</pre>|<pre>filter(lambda x: x % 2 == 0, [1,2,3,4])</pre>
-select/filter
-comprehension|<pre>Table[If[Mod[x,2]==0,x,Nothing],{x,{1,2,3,4}}]</pre>|<pre>[x for x in [1,2,3,4] if x % 2 == 0]</pre>
+select/filter comprehension|<pre>Table[If[Mod[x,2]==0,x,Nothing],{x,{1,2,3,4}}]</pre>|<pre>[x for x in [1,2,3,4] if x % 2 == 0]</pre>
 fold (reduce)|<pre>Fold[Plus, 0, {1,2,3,4}]</pre>|<pre>from functools import reduce<br/>reduce(lambda a,b: a+b, [1,2,3,4], 0)<br/></pre>
 nest (reduce)|<pre>Nest[#/2&, 16., Log[2,16]]</pre>|<pre>from functools import reduce; import math<br/>reduce(lambda acc, _: acc / 2, range(int(math.log(16, 2))), 16)<br/></pre>
 anonymous function|<pre>#^2&[2]</pre>|<pre>(lambda x: x**2)(2)</pre>

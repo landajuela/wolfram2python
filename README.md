@@ -7,7 +7,7 @@ Welcome to **Wolfram ↔ Python**, a quick reference guide that mirrors common W
  Name | Wolfram | Python
 :---:|:---|:---
 range|<pre>{Range[0,7],Range[0,7,2]}</pre>|<pre>[range(0,7+1),range(0,7+1,2)]</pre>
-func|<pre>f[x_]:=x+2;f[2]</pre>|<pre>def f(x):<br/>	return 2 + x<br/>f(2)<br/></pre>
+func|<pre>f[x_,y_:2]:=x+2+y;f[2]</pre>|<pre>def f(x,y=2):<br/>	return 2+x+y<br/>f(2)<br/></pre>
 global|<pre>Names["Global`*"]</pre>|<pre>globals()</pre>
 print|<pre>Print["Hello world"]</pre>|<pre>print("Hello world")</pre>
 print val|<pre>Print["val="<>ToString[5]]</pre>|<pre>print(f"val={str(5)}")</pre>
@@ -21,14 +21,14 @@ null|<pre>None</pre>|<pre>None</pre>
  Name | Wolfram | Python
 :---:|:---|:---
 list|<pre>{2,2,9,6,7}</pre>|<pre>[2,2,9,6,7]</pre>
-append to list|<pre>l={2, 2, 9, 6, 7}; AppendTo[l,2];l</pre>|<pre>l=[2, 2, 9, 6, 7]; l.append(2); l</pre>
-insert to list|<pre>l={2,2,9,6,7};l=Insert[l,3,1+1];l</pre>|<pre>l=[2, 2, 9, 6, 7]; l.insert(1,3);l</pre>
+length of list|<pre>Length[{2, 2, 9, 6, 7}]</pre>|<pre>len([2,2,9,6,7])</pre>
+append to list|<pre>l={2, 2, 9, 6, 7}; AppendTo[l,2];l</pre>|<pre>l=[2,2,9,6,7];l.append(2); l</pre>
+insert to list|<pre>l={2,2,9,6,7};l=Insert[l,3,1+1];l</pre>|<pre>l=[2,2,9,6,7];l.insert(1,3);l</pre>
 pop from list|<pre>l={2,2,9,6,7};l=Drop[l,-1];l</pre>|<pre>l=[2,2,9,6,7];l.pop();l</pre>
-extend list|<pre>l={2,2,9,6,7};l=Join[l,{5,6}];l</pre>|<pre>l=[2, 2, 9, 6, 7];l.extend([5, 6]);l</pre>
-slice list|<pre>l={2,2,9,6,7};{l[[;;]],l[[1+1;;]],l[[0+1;;-1-1;;2]],l[[1;;-1;;2]]}</pre>|<pre>l=[2, 2, 9, 6, 7];[l[:],l[1::],l[0:-1:2],l[::2]]</pre>
-length of list|<pre>Length[{2, 2, 9, 6, 7}]</pre>|<pre>len([2, 2, 9, 6, 7])</pre>
+extend list|<pre>l={2,2,9,6,7};l=Join[l,{5,6}];l</pre>|<pre>l=[2,2,9,6,7];l.extend([5, 6]);l</pre>
+slice list|<pre>l={2,2,9,6,7};{l[[;;]],l[[1+1;;]],l[[0+1;;-1-1;;2]],l[[1;;-1;;2]]}</pre>|<pre>l=[2,2,9,6,7];[l[:],l[1::],l[0:-1:2],l[::2]]</pre>
 join lists|<pre>{1,2}~Join~{3,4}</pre>|<pre>[1,2]+[3,4]</pre>
-zip 2 lists|<pre>Transpose[{{"a", "b", "c", "d", "e"},{2, 2, 9, 6, 7}}]</pre>|<pre>zip(["a", "b", "c", "d", "e"],[2, 2, 9, 6, 7])</pre>
+zip 2 lists|<pre>Transpose[{{"a","b","c","d","e"},{2,2,9,6,7}}]</pre>|<pre>zip(["a","b","c","d","e"],[2,2,9,6,7])</pre>
 get element position|<pre>Position[{a,b,a,a,b,c,b},b]</pre>|<pre>[[i + 1] for i,v in enumerate(['a','b','a','a','b','c','b']) if v == 'b']</pre>
 random sample|<pre>RandomSample[{1,2,3,4}, 2]</pre>|<pre>import random;random.sample([1,2,3,4], 2)</pre>
 reverse list (out-of-place)|<pre>Reverse[{1,2,3}]</pre>|<pre>list(reversed([1,2,3]))</pre>
@@ -45,7 +45,7 @@ sort list (stable,in-place)|<pre>words = {"apple", "bat", "banana", "car"};<br/>
 :---:|:---|:---
 list of lists|<pre>{{1,2},{3,4}}</pre>|<pre>[[1,2],[3,4]]</pre>
 extract column (ll)|<pre>l={{1,2},{3,4,5}};l[[All,2]]</pre>|<pre>l=[[1,2],[3,4,5]]; [row[1] for row in l]</pre>
-sorted (ll)|<pre>l = {{"b", 3},{"a", 5},{"a", 4},{"b", 2}};SortBy[l, {First, Last}]</pre>|<pre>l=[["b",3],["a",5],["a",4],["b",2]];sorted(l,key=lambda item : [item[0],item[1]])</pre>
+sorted (ll)|<pre>l = {{"b", 3},{"a", 5},{"a", 4},{"b", 2}};<br/>SortBy[l, {First, Last}]<br/></pre>|<pre>l=[["b",3],["a",5],["a",4],["b",2]];<br/>sorted(l,key=lambda item : [item[0],item[1]])<br/></pre>
 flatten nested|<pre>Flatten[{{1,2},{3,4}}]</pre>|<pre>l=[[1, 2], [3, 4]]; [x for sub in l for x in sub]</pre>
 partition/chunk|<pre>Partition[{1,2,3,4,5,6,7}, UpTo[2]]</pre>|<pre>l = [1,2,3,4,5,6,7]; [l[i:i+2] for i in range(0, len(l), 2)]</pre>
 
@@ -53,17 +53,17 @@ partition/chunk|<pre>Partition[{1,2,3,4,5,6,7}, UpTo[2]]</pre>|<pre>l = [1,2,3,4
 
  Name | Wolfram | Python
 :---:|:---|:---
-dict|<pre><\|"a" -> 2, "b" -> 2, "c" -> 9, "d" -> 6, "e" -> 7\|></pre>|<pre>{"a": 2, "b": 2, "c": 9, "d": 6, "e": 7}</pre>
-access element in dict|<pre><\|"a" -> 2, "b" -> 2, "c" -> 9, "d" -> 6, "e" -> 7\|>["a"]</pre>|<pre>{"a": 2, "b": 2, "c": 9, "d": 6, "e": 7}["a"]</pre>
-add or update key|<pre>d = <\|"a" -> 1\|>; d["b"] = 2; d</pre>|<pre>d = {"a": 1}; d["b"] = 2; d</pre>
-remove key|<pre>KeyDrop[<\|"a" -> 1, "b" -> 2\|>, "a"]</pre>|<pre>d = {"a": 1, "b": 2};d.pop("a"); d</pre>
-get keys|<pre>Keys[<\|"a"->1, "b"->2\|>]</pre>|<pre>d = {"a": 1, "b": 2}; d.keys()</pre>
-get values|<pre>Values[<\|"a"->1, "b"->2\|>]</pre>|<pre>d = {"a": 1, "b": 2}; d.values()</pre>
-get key-values|<pre>d=<\|"a"->1, "b"->2\|>;MapApply[{#1,#2}&,Normal[d]]</pre>|<pre>d = {"a": 1, "b": 2}; d.items()</pre>
-sort by key|<pre>d=<\|"b"->2,"a"->1,"c"->3\|>; KeySort[d]</pre>|<pre>d = {'b': 2, 'a': 1, 'c': 3}; dict(sorted(d.items()))</pre>
-sort by value|<pre>d=<\|"b"->2,"a"->1,"c"->3\|>; Association@SortBy[Normal[d],#[[-1]]&]</pre>|<pre>d = {'b': 2, 'a': 1, 'c': 3}; dict(sorted(d.items(), key=lambda kv: kv[1]))</pre>
-merge dict out-of-place|<pre>a=<\|"b"->2,"a"->1,"c"->3\|>;b=<\|"d"->2,"e"->1,"c"->4\|>;Join[a,b]</pre>|<pre>a={"b":2,"a":1,"c":3};b={"d":2,"e":1,"c": 4};a \| b</pre>
-merge dict in-place|<pre>a=<\|"b"->2,"a"->1,"c"->3\|>;b=<\|"d"->2,"e"->1,"c"->4\|>;AssociateTo[a,b];a</pre>|<pre>a={"b":2,"a":1,"c":3};b={"d":2,"e":1,"c": 4};a.update(b);a</pre>
+dict|<pre><\|"a"->2,"b"->2,"c"->9,"d"->6,"e"->7\|></pre>|<pre>{"a":2,"b":2,"c":9,"d":6,"e":7}</pre>
+access element in dict|<pre><\|"a"->2,"b"->2,"c"->9,"d"->6,"e"->7\|>["a"]</pre>|<pre>{"a":2,"b":2,"c":9,"d":6,"e":7}["a"]</pre>
+add or update key|<pre>d = <\|"a"->1\|>; d["b"] = 2; d</pre>|<pre>d = {"a": 1}; d["b"] = 2; d</pre>
+remove key|<pre>KeyDrop[<\|"a"->1,"b"->2\|>, "a"]</pre>|<pre>d = {"a": 1, "b": 2};d.pop("a"); d</pre>
+get keys|<pre>Keys[<\|"a"->1,"b"->2\|>]</pre>|<pre>d = {"a": 1, "b": 2}; d.keys()</pre>
+get values|<pre>Values[<\|"a"->1,"b"->2\|>]</pre>|<pre>d = {"a": 1, "b": 2}; d.values()</pre>
+get key-values|<pre>d=<\|"a"->1,"b"->2\|>;MapApply[{#1,#2}&,Normal[d]]</pre>|<pre>d = {"a": 1, "b": 2}; d.items()</pre>
+sort by key|<pre>d=<\|"b"->2,"a"->1,"c"->3\|>;<br/>KeySort[d]<br/></pre>|<pre>d = {'b': 2,'a': 1,'c':3}<br/>dict(sorted(d.items()))<br/></pre>
+sort by value|<pre>d=<\|"b"->2,"a"->1,"c"->3\|>;<br/>Association@SortBy[Normal[d],#[[-1]]&]<br/></pre>|<pre>d={'b': 2, 'a': 1, 'c': 3};<br/>dict(sorted(d.items(), key=lambda kv: kv[1]))<br/></pre>
+merge dict out-of-place|<pre>a=<\|"b"->2,"a"->1,"c"->3\|>;b=<\|"d"->2,"e"->1,"c"->4\|>;<br/>Join[a,b]<br/></pre>|<pre>a={"b":2,"a":1,"c":3};b={"d":2,"e":1,"c": 4};<br/>a \| b<br/></pre>
+merge dict in-place|<pre>a=<\|"b"->2,"a"->1,"c"->3\|>;b=<\|"d"->2,"e"->1,"c"->4\|>;<br/>AssociateTo[a,b];a<br/></pre>|<pre>a={"b":2,"a":1,"c":3};b={"d":2,"e":1,"c": 4};<br/>a.update(b);a<br/></pre>
 unpack a dictionary|<pre>Association["A"->1,Table[ToString[i]->i,{i,2,3}],"J"->4]</pre>|<pre>{"A": 1, **{str(i): i for i in range(2, 3+1)}, "J": 4}</pre>
 
 ## List of dicts
@@ -72,14 +72,14 @@ unpack a dictionary|<pre>Association["A"->1,Table[ToString[i]->i,{i,2,3}],"J"->4
 :---:|:---|:---
 list of dicts|<pre>{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}</pre>|<pre>[{"a": 1, "b": 2},{"a": 3, "b": 4}]</pre>
 extract column from ld|<pre>d={<\|"a"->1,"b"->2,"c"->5\|>,<\|"a"->3,"b"->4\|>};d[[All,"b"]]</pre>|<pre>d = [{"a": 1, "b": 2, "c": 5},{"a": 3, "b": 4}]; [elem["b"] for elem in d]</pre>
-select entry in ld|<pre>people={<\|"name"->"John","age"->25\|>,<\|"name"->"Jane","age"->30\|>};Select[people,(#["name"]=="John")&]</pre>|<pre>people=[{'name': 'John', 'age': 25},{'name': 'Jane', 'age': 30}]<br/>[elem for elem in people if elem['name'] == 'John']<br/></pre>
-sort ld by entry|<pre>people={<\|"name"->"John","age"->45\|>,<\|"name"->"Jane","age"->30\|>};SortBy[people,#"age"&]</pre>|<pre>people=[{'name': 'John', 'age': 45},{'name': 'Jane', 'age': 30}]<br/>sorted(people,key=lambda item : item['age'])<br/></pre>
+select entry in ld|<pre>people={<\|"name"->"John","age"->25\|>,<\|"name"->"Jane","age"->30\|>};<br/>Select[people,(#["name"]=="John")&]<br/></pre>|<pre>people=[{'name': 'John', 'age': 25},{'name': 'Jane', 'age': 30}]<br/>[elem for elem in people if elem['name'] == 'John']<br/></pre>
+sort ld by entry|<pre>people={<\|"name"->"John","age"->45\|>,<\|"name"->"Jane","age"->30\|>};<br/>SortBy[people,#"age"&]<br/></pre>|<pre>people=[{'name': 'John', 'age': 45},{'name': 'Jane', 'age': 30}]<br/>sorted(people,key=lambda item : item['age'])<br/></pre>
 
 ## Set
 
  Name | Wolfram | Python
 :---:|:---|:---
-initialization empty|<pre>(* Mathematica doesn’t have a built-in hash-set; use a list { } and Unique[*] if you must *)</pre>|<pre>s = set()</pre>
+initialization empty|<pre>(*No hash-set;use a list and Unique*)</pre>|<pre>s = set()</pre>
 initialization from iterable|<pre>s={1,2,2,2,3,3};s=DeleteDuplicates[s];s</pre>|<pre>s=set([1,2,2,2,3,3]);s</pre>
 add element|<pre>s={1,2,2,2,3,3};s=DeleteDuplicates[s];AppendTo[s,5]</pre>|<pre>s=set([1,2,2,2,3,3]);s.add(5);s</pre>
 add multiple elements|<pre>s={1,2,2,2,3,3};s=DeleteDuplicates[s];Union[s,{5,6}]</pre>|<pre>s=set([1,2,2,2,3,3]);s.update([5,6]);s</pre>
@@ -107,7 +107,7 @@ clear queue|<pre>ds["DropAll"]</pre>|<pre>q.clear()</pre>
  Name | Wolfram | Python
 :---:|:---|:---
 map & comprehension|<pre>Map[#^2&,{1,2,3,4}]==Table[x^2,{x,{1,2,3,4}}]</pre>|<pre>list(map(lambda x: x**2, [1,2,3,4])) == [x**2 for x in [1,2,3,4]]</pre>
-filter & comprehension|<pre>Select[{1, 2, 3, 4}, (Mod[#,2]==0)&]==Table[If[Mod[x,2]==0,x,Nothing],{x,{1,2,3,4}}]</pre>|<pre>list(filter(lambda x: x % 2 == 0, [1,2,3,4])) == [x for x in [1,2,3,4] if x % 2 == 0]</pre>
+filter & comprehension|<pre>Select[{1, 2, 3, 4}, (Mod[#,2]==0)&]==Table[<br/>If[Mod[x,2]==0,x,Nothing],{x,{1,2,3,4}}]<br/></pre>|<pre>list(filter(lambda x: x % 2 == 0, [1,2,3,4])) == [x <br/> for x in [1,2,3,4] if x % 2 == 0]<br/></pre>
 
 ## Functional programming
 
@@ -138,7 +138,7 @@ break/exit loop|<pre>For[i = 1, i < 10, i++, If[i > 5, Break[]]]</pre>|<pre>for 
  Name | Wolfram | Python
 :---:|:---|:---
 dataset/dataframe|<pre>Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}]</pre>|<pre>import pandas as pd<br/>pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/></pre>
-extract value from df|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>{df[[1,"b"]],df[[1,"b"]],df[[1]]["b"],df[[All,"b"]][1],df[[All,"b"]][[1]]}<br/></pre>|<pre>import pandas as pd<br/>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>[df.loc[0, "b"], df.at[0, "b"], df.iloc[0]["b"], df["b"].iloc[0], df["b"].iat[0]]<br/></pre>
+extract value from df|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>{df[[1,"b"]],df[[1,"b"]],df[[1]]["b"],<br/> df[[All,"b"]][1],df[[All,"b"]][[1]]}<br/></pre>|<pre>import pandas as pd<br/>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>[df.loc[0, "b"], df.at[0, "b"], df.iloc[0]["b"],<br/> df["b"].iloc[0], df["b"].iat[0]]<br/></pre>
 extract column from df|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>df[All, "a"]<br/></pre>|<pre>import pandas as pd<br/>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>list(df["a"].values)<br/></pre>
 extract multiple columns|<pre>df = Dataset[{<\|"a"->1,"b"->2,"c"->4\|>,<\|"a"->3,"b"->4,"c"->5\|>}];<br/>df[All, {"a", "b"}]<br/></pre>|<pre>import pandas as pd<br/>df = pd.DataFrame([{"a": 1, "b": 2, "c": 3}, {"a": 3, "b": 4, "c": 5}])<br/>df[["a", "b"]]<br/></pre>
 extract row|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>df[1]<br/></pre>|<pre>import pandas as pd<br/>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>df.iloc[0]<br/></pre>
@@ -147,7 +147,8 @@ select/filter rows|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];
 transform column|<pre>df = Dataset[{<\|"a"->1,"b"->2,"c"->4\|>,<\|"a"->3,"b"->4,"c"->5\|>}];<br/>df[All,Association[#,"b"->(#["b"]^2)]&]<br/></pre>|<pre>import pandas as pd<br/>df=pd.DataFrame([{"a": 1, "b": 2, "c": 4}, {"a": 3, "b": 4, "c": 5}])<br/>df["b"] = df["b"].apply(lambda x:x**2); df<br/></pre>
 append vectorized column|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>df[All, Append[#, "c" -> #a + #b] &]<br/></pre>|<pre>import pandas as pd<br/>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>df["c"] = df["a"] + df["b"];df<br/></pre>
 append new column|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>df[All, Append[#, "a_sq" -> (#a)^2] &]<br/></pre>|<pre>import pandas as pd<br/>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>df["a_sq"] = df["a"].apply(lambda x: x**2);df<br/></pre>
-method chaining|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>ds2 = Select[df, #a > 1 &];<br/>ds3 = ds2[All, Append[#, "d" -> #a * #b] &];<br/>ds3[All, {"a", "b", "d"}]<br/></pre>|<pre>import pandas as pd<br/>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>(df[df["a"] > 1]<br/>   .assign(d=lambda x: x["a"] * x["b"])<br/>   .loc[:, ["a", "b", "d"]])<br/></pre>
+method chaining|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>ds2 = Select[df, #a > 1 &];<br/>ds3 = ds2[All, Append[#, "d" -> #a * #b] &];<br/>ds3[All, {"a", "b", "d"}]<br/></pre>|<pre>import pandas as pd<br/>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>(df[df["a"] > 1].assign(d=lambda x: x["a"] * x["b"])<br/>   .loc[:, ["a", "b", "d"]])<br/></pre>
+group by|<pre>patients=Dataset[{<\|"city"->"A","age"->30.\|>,<br/><\|"city"->"B","age"->45.\|>,<\|"city"->"A","age"->50.\|>}];<br/>Normal[patients[GroupBy["city"],Mean,"age"]]<br/></pre>|<pre>patients=pd.DataFrame([{'city': 'A', 'age': 30},<br/> {'city': 'B', 'age': 45}, {'city': 'A', 'age': 50}])<br/>patients.groupby('city')['age'].mean().to_dict()<br/></pre>
 
 ## String
 
@@ -160,7 +161,7 @@ string length|<pre>StringLength["hello"]</pre>|<pre>len("hello")</pre>
 uppercase|<pre>ToUpperCase["hello"]</pre>|<pre>"hello".upper()</pre>
 replace substring|<pre>StringReplace["a_b_c", "_"->"-"]</pre>|<pre>"a_b_c".replace("_","-")</pre>
 string starts|<pre>{StringStartsQ["beach", "_"],StringStartsQ["beach", "b"]}</pre>|<pre>["beach".startswith('_'),"beach".startswith('b')]</pre>
-sort|<pre>sl={"s2","s10","s50","a"};<br/>SortBy[sl,StringCases[#,x:(DigitCharacter..\|LetterCharacter..):>If[<br/>StringMatchQ[x,DigitCharacter..],ToExpression[x],ToLowerCase[x]]]&]<br/></pre>|<pre>import re;sl=["s2","s10","s50","a"];<br/>sorted(sl, key=lambda s : [int(t) if t.isdigit() else t.lower() for t in re.split(r'(\d+)', s)])<br/></pre>
+sort|<pre>sl={"s2","s10","s50","a"};<br/>SortBy[sl,StringCases[#,x:(DigitCharacter..\|LetterCharacter..):>If[<br/>StringMatchQ[x,DigitCharacter..],ToExpression[x],ToLowerCase[x]]]&]<br/></pre>|<pre>import re;sl=["s2","s10","s50","a"];<br/>sorted(sl, key=lambda s : [int(t) if t.isdigit() else t.lower()<br/> for t in re.split(r'(\d+)', s)])<br/></pre>
 
 ## Math
 
@@ -186,10 +187,11 @@ chaining comparisons & logic|<pre>x = 10; {0 < x < 15 && ! (x < 5 \|\| x > 20)}<
 
  Name | Wolfram | Python
 :---:|:---|:---
+basic split|<pre>s="20s10";StringSplit[s,RegularExpression["(\d+)"]->"$1",All]</pre>|<pre>s = "20s10";re.split(r'(\d+)', s)</pre>
 basic match|<pre>StringMatchQ["hello123", RegularExpression["^[a-z]+\d+"]]</pre>|<pre>import re<br/>bool(re.match(r"^[a-z]+\d+", "hello123"))<br/></pre>
 findall digits|<pre>StringCases["ID: 4567 & Code: 890", RegularExpression["\d+"]]</pre>|<pre>import re<br/>re.findall(r"\d+", "ID: 4567 & Code: 890")<br/></pre>
 replace whitespace|<pre>StringReplace["The rain in Spain", RegularExpression["\s+"] -> "_"]</pre>|<pre>import re<br/>re.sub(r"\s+", "_", "The rain in Spain")<br/></pre>
-email validation|<pre>StringMatchQ["alice-b@google.com", RegularExpression["^[\w\.\-]+@[\w\.\-]+\.[a-zA-Z]{2,4}$"]]</pre>|<pre>import re<br/>bool(re.match(r"^[\w\.\-]+@[\w\.\-]+\.[a-zA-Z]{2,4}$", "alice-b@google.com"))<br/></pre>
+email validation|<pre>StringMatchQ["alice-b@google.com",<br/> RegularExpression["^[\w\.\-]+@[\w\.\-]+\.[a-zA-Z]{2,4}$"]]<br/></pre>|<pre>import re<br/>bool(re.match(r"^[\w\.\-]+@[\w\.\-]+\.[a-zA-Z]{2,4}$",<br/> "alice-b@google.com"))<br/></pre>
 
 ## Parity Test
 

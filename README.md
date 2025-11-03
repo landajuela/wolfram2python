@@ -23,11 +23,12 @@ walrus|<pre>{{x=16},x}</pre>|<pre>[[x:=16],x]</pre>
 :---:|:---|:---
 list|<pre>{2,2,9,6,7}</pre>|<pre>[2,2,9,6,7]</pre>
 length of list|<pre>Length[{2, 2, 9, 6, 7}]</pre>|<pre>len([2,2,9,6,7])</pre>
-append to list|<pre>l={2, 2, 9, 6, 7}; AppendTo[l,2];l</pre>|<pre>l=[2,2,9,6,7];l.append(2); l</pre>
-insert to list|<pre>l={2,2,9,6,7};l=Insert[l,3,1+1];l</pre>|<pre>l=[2,2,9,6,7];l.insert(1,3);l</pre>
-pop from list|<pre>l={2,2,9,6,7};l=Drop[l,-1];l</pre>|<pre>l=[2,2,9,6,7];l.pop();l</pre>
-extend list|<pre>l={2,2,9,6,7};l=Join[l,{5,6}];l</pre>|<pre>l=[2,2,9,6,7];l.extend([5, 6]);l</pre>
-slice list|<pre>l={2,2,9,6,7};{l[[;;]],l[[1+1;;]],l[[0+1;;-1-1;;2]],l[[1;;-1;;2]]}</pre>|<pre>l=[2,2,9,6,7];[l[:],l[1::],l[0:-1:2],l[::2]]</pre>
+append to list|<pre>l={2, 2, 9, 6, 7}; AppendTo[l,2];l</pre>|<pre>l=[2,2,9,6,7]; l.append(2); l</pre>
+insert to list|<pre>l={2,2,9,6,7};l=Insert[l,3,1+1];l</pre>|<pre>l=[2,2,9,6,7]; l.insert(1,3); l</pre>
+pop (last) from list|<pre>l={2,2,9,6,7}; {Last[l],Drop[l,-1]}</pre>|<pre>l=[2,2,9,6,7]; [l.pop(),l]</pre>
+pop (index) from list|<pre>l={2,3,9,6,7}; {l[[2]],Delete[l, 2]}</pre>|<pre>l=[2,3,9,6,7]; [l.pop(1),l]</pre>
+extend list|<pre>l={2,2,9,6,7};l=Join[l,{5,6}];l</pre>|<pre>l=[2,2,9,6,7]; l.extend([5, 6]);l</pre>
+slice list|<pre>l={2,2,9,6,7};{l[[;;]],l[[1+1;;]],l[[1+1;;4]],<br/> l[[0+1;;-1-1;;2]],l[[1;;-1;;2]]}<br/></pre>|<pre>l=[2,2,9,6,7];[l[:],l[1::],l[1:3+1],<br/> l[0:-1:2],l[::2]]<br/></pre>
 join lists|<pre>{1,2}~Join~{3,4}</pre>|<pre>[1,2]+[3,4]</pre>
 zip 2 lists|<pre>Transpose[{{"a","b","c","d","e"},{2,2,9,6,7}}]</pre>|<pre>zip(["a","b","c","d","e"],[2,2,9,6,7])</pre>
 get element position|<pre>Position[{a,b,a,a,b,c,b},b]</pre>|<pre>[[i + 1] for i,v in enumerate(['a','b','a','a','b','c','b']) if v == 'b']</pre>
@@ -60,7 +61,7 @@ add or update key|<pre>d = <\|"a"->1\|>; d["b"] = 2; d</pre>|<pre>d = {"a": 1}; 
 remove key|<pre>KeyDrop[<\|"a"->1,"b"->2\|>, "a"]</pre>|<pre>d = {"a": 1, "b": 2};d.pop("a"); d</pre>
 get keys|<pre>Keys[<\|"a"->1,"b"->2\|>]</pre>|<pre>d = {"a": 1, "b": 2}; d.keys()</pre>
 get values|<pre>Values[<\|"a"->1,"b"->2\|>]</pre>|<pre>d = {"a": 1, "b": 2}; d.values()</pre>
-get key-values|<pre>d=<\|"a"->1,"b"->2\|>;MapApply[{#1,#2}&,Normal[d]]</pre>|<pre>d = {"a": 1, "b": 2}; d.items()</pre>
+get key-values|<pre>d=<\|"a"->1,"b"->2\|>; MapApply[{#1,#2}&,Normal[d]]</pre>|<pre>d = {"a": 1, "b": 2}; d.items()</pre>
 sort by key|<pre>d=<\|"b"->2,"a"->1,"c"->3\|>;<br/>KeySort[d]<br/></pre>|<pre>d = {'b': 2,'a': 1,'c':3}<br/>dict(sorted(d.items()))<br/></pre>
 sort by value|<pre>d=<\|"b"->2,"a"->1,"c"->3\|>;<br/>Association@SortBy[Normal[d],#[[-1]]&]<br/></pre>|<pre>d={'b': 2, 'a': 1, 'c': 3};<br/>dict(sorted(d.items(), key=lambda kv: kv[1]))<br/></pre>
 merge dict out-of-place|<pre>a=<\|"b"->2,"a"->1,"c"->3\|>;b=<\|"d"->2,"e"->1,"c"->4\|>;<br/>Join[a,b]<br/></pre>|<pre>a={"b":2,"a":1,"c":3};b={"d":2,"e":1,"c": 4};<br/>a \| b<br/></pre>

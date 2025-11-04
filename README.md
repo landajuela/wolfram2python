@@ -7,7 +7,7 @@ Welcome to **Wolfram ↔ Python**, a quick reference guide that mirrors common W
  Name | Wolfram | Python
 :---:|:---|:---
 range|<pre>{Range[0,7],Range[0,7,2]}</pre>|<pre>[range(0,7+1),range(0,7+1,2)]</pre>
-func|<pre>f[x_,y_:2]:=x+2+y;f[2]</pre>|<pre>def f(x,y=2):<br/>	return 2+x+y<br/>f(2)<br/></pre>
+func|<pre>f[x_,y_:2]:=x+2+y;f[2]</pre>|<pre>def f(x,y=2): return 2+x+y<br/>f(2)<br/></pre>
 global|<pre>Names["Global`*"]</pre>|<pre>globals()</pre>
 print|<pre>Print["Hello world"]</pre>|<pre>print("Hello world")</pre>
 print val|<pre>Print["val="<>ToString[5]]</pre>|<pre>print(f"val={str(5)}")</pre>
@@ -16,6 +16,7 @@ add to|<pre>i=2;i+=1;i</pre>|<pre>i=2;i+=1;i</pre>
 help|<pre>?Sort</pre>|<pre>help(sorted)</pre>
 null|<pre>None</pre>|<pre>None</pre>
 walrus|<pre>{{x=16},x}</pre>|<pre>[[x:=16],x]</pre>
+unpacking|<pre>f[a_,b_,c_]:={a,b,c}<br/>args={1,2};kwargs=<\|"c"->3\|>;<br/>f[Sequence@@args,kwargs["c"]]<br/></pre>|<pre>def f(a, b, c): return [a, b, c]<br/>args = [1, 2]; kwargs = {"c": 3}<br/>f(*args,**kwargs)# f(1, 2, c=3)<br/></pre>
 
 ## List
 
@@ -99,10 +100,10 @@ membership test|<pre>MemberQ[{1,2,3}, 3]</pre>|<pre>3 in {1,2,3}</pre>
  Name | Wolfram | Python
 :---:|:---|:---
 initialize empty|<pre>q = CreateDataStructure["Deque"]</pre>|<pre>from collections import deque;q=deque()</pre>
+get length|<pre>q=CreateDataStructure["Deque",{2,3,4}];q["Length"]</pre>|<pre>from collections import deque;q=deque([2,3,4]);len(q)</pre>
 peek front|<pre>q=CreateDataStructure["Deque",{3,2}];q["PeekFront"]</pre>|<pre>from collections import deque;q=deque([3,2]);q[0]</pre>
 enqueue (push to right)|<pre>q=CreateDataStructure["Deque"];q["PushBack",2];<br/>q["PushBack",3];q["PushBack",4];q["PeekFront"]<br/></pre>|<pre>from collections import deque;q=deque();q.append(2);<br/>q.append(3);q.append(4);q[0]<br/></pre>
 dequeue (pop from front)|<pre>q=CreateDataStructure["Deque",{2,3,4}];q["PopFront"]</pre>|<pre>from collections import deque;q=deque([2,3,4]);q.popleft()</pre>
-get length|<pre>q=CreateDataStructure["Deque",{2,3,4}];q["Length"]</pre>|<pre>from collections import deque;q=deque([2,3,4]);len(q)</pre>
 clear queue|<pre>ds["DropAll"]</pre>|<pre>q.clear()</pre>
 
 ## Equivalence
@@ -135,7 +136,7 @@ func nest|<pre>NestList[#^2&,2,4]</pre>|<pre>f, x, n = lambda v: v**2, 2, 4;runn
 if|<pre>If[3>2,Print["true"]]</pre>|<pre>if 3 > 2:<br/>    print("true")<br/></pre>
 if assign|<pre>If[3 < 2, 3, 2]</pre>|<pre>3 if 3 < 2 else 2</pre>
 for loop|<pre>Do[Print[i], {i, 1, 5}]</pre>|<pre>for i in range(1,6):<br/>    print(i)<br/></pre>
-while loop|<pre>i = 0; While[i < 5, i++; Print[i]]</pre>|<pre>i = 0<br/>while i < 5:<br/>    i += 1<br/>    print(i)<br/></pre>
+while loop|<pre>i = 0;<br/>While[i < 5, i++; Print[i]]<br/></pre>|<pre>i = 0<br/>while i < 5: i += 1; print(i)<br/></pre>
 break/exit loop|<pre>For[i = 1, i < 10, i++,<br/> If[i > 5, Break[]]]<br/></pre>|<pre>for i in range(1,10):<br/>    if i > 5: break<br/></pre>
 
 ## Dataframe

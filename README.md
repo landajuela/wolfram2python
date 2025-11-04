@@ -56,6 +56,7 @@ partition/chunk|<pre>Partition[{1,2,3,4,5,6,7}, UpTo[2]]</pre>|<pre>l = [1,2,3,4
  Name | Wolfram | Python
 :---:|:---|:---
 dict|<pre><\|"a"->2,"b"->2,"c"->9,"d"->6,"e"->7\|></pre>|<pre>{"a":2,"b":2,"c":9,"d":6,"e":7}</pre>
+init from list|<pre>Association[{"b"2,"a"1,"c"3}]</pre>|<pre>dict([['b',2],['a',1],['c',3]])</pre>
 access element in dict|<pre><\|"a"->2,"b"->2,"c"->9,"d"->6,"e"->7\|>["a"]</pre>|<pre>{"a":2,"b":2,"c":9,"d":6,"e":7}["a"]</pre>
 add or update key|<pre>d = <\|"a"->1\|>; d["b"] = 2; d</pre>|<pre>d = {"a": 1}; d["b"] = 2; d</pre>
 remove key|<pre>KeyDrop[<\|"a"->1,"b"->2\|>, "a"]</pre>|<pre>d = {"a": 1, "b": 2};d.pop("a"); d</pre>
@@ -148,11 +149,12 @@ extract multiple columns|<pre>df = Dataset[{<\|"a"->1,"b"->2,"c"->4\|>,<\|"a"->3
 extract row|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>df[1]<br/></pre>|<pre>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>df.iloc[0]<br/></pre>
 remove/drop columns|<pre>df = Dataset[{<\|"a"->1,"b"->2,"c"->4\|>,<\|"a"->3,"b"->4,"c"->5\|>}];<br/>df[All, KeyDrop["c"]]<br/></pre>|<pre>df=pd.DataFrame([{"a": 1, "b": 2, "c": 4}, {"a": 3, "b": 4, "c": 5}])<br/>df.drop(columns=["c"])<br/></pre>
 select/filter rows|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>df[Select[#["a"]>1&&#["b"]>1&]]<br/></pre>|<pre>df=pd.DataFrame([{"a": 1, "b": 2},{"a": 3, "b": 4},{"a": 2, "b": -1}])<br/>df[(df["a"] > 1) & (df["b"] > 1)]<br/></pre>
-transform column|<pre>df = Dataset[{<\|"a"->1,"b"->2,"c"->4\|>,<\|"a"->3,"b"->4,"c"->5\|>}];<br/>df[All,Association[#,"b"->(#["b"]^2)]&]<br/></pre>|<pre>df=pd.DataFrame([{"a": 1, "b": 2, "c": 4}, {"a": 3, "b": 4, "c": 5}])<br/>df["b"] = df["b"].apply(lambda x:x**2); df<br/></pre>
-append vectorized column|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>df[All, Append[#, "c" -> #a + #b] &]<br/></pre>|<pre>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>df["c"] = df["a"] + df["b"];df<br/></pre>
+transform column|<pre>df = Dataset[{<\|"a"->1,"b"->2,"c"->4\|>,<\|"a"->3,"b"->4,"c"->5\|>}];<br/>df[All, Association[#,"b"->(#["b"]^2)]&]<br/></pre>|<pre>df=pd.DataFrame([{"a": 1, "b": 2, "c": 4}, {"a": 3, "b": 4, "c": 5}])<br/>df["b"] = df["b"].apply(lambda x:x**2); df<br/></pre>
+append vectorized column|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>df[All, Append[#, "c" -> #a + #b] &]<br/></pre>|<pre>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>df["c"] = df["a"] + df["b"]; df<br/></pre>
 append new column|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>df[All, Append[#, "a_sq" -> (#a)^2] &]<br/></pre>|<pre>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>df["a_sq"] = df["a"].apply(lambda x: x**2);df<br/></pre>
 method chaining|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>ds2 = Select[df, #a > 1 &];<br/>ds3 = ds2[All, Append[#, "d" -> #a * #b] &];<br/>ds3[All, {"a", "b", "d"}]<br/></pre>|<pre>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>(df[df["a"] > 1].assign(d=lambda x: x["a"] * x["b"])<br/>   .loc[:, ["a", "b", "d"]])<br/></pre>
 group by|<pre>patients=Dataset[{<\|"city"->"A","age"->30.\|>,<br/><\|"city"->"B","age"->45.\|>,<\|"city"->"A","age"->50.\|>}];<br/>Normal[patients[GroupBy["city"],Mean,"age"]]<br/></pre>|<pre>patients=pd.DataFrame([{'city': 'A', 'age': 30},<br/> {'city': 'B', 'age': 45}, {'city': 'A', 'age': 50}])<br/>patients.groupby('city')['age'].mean().to_dict()<br/></pre>
+sort by|<pre>df=Dataset[{<\|"a"->1,"b"->4\|>,<\|"a"->3,"b"->3\|>,<br/> <\|"a"->3,"b"->2\|>}]; df[SortBy[#["b"]&]]<br/></pre>|<pre>df=pd.DataFrame([{"a": 1, "b": 4}, {"a": 3, "b": 3},<br/> {"a": 3, "b": 2}]); df.sort_values("b")<br/></pre>
 
 ## String
 

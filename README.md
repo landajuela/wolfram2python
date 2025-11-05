@@ -157,6 +157,21 @@ method chaining|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br
 group by|<pre>patients=Dataset[{<\|"city"->"A","age"->30.\|>,<br/><\|"city"->"B","age"->45.\|>,<\|"city"->"A","age"->50.\|>}];<br/>Normal[patients[GroupBy["city"],Mean,"age"]]<br/></pre>|<pre>patients=pd.DataFrame([{'city': 'A', 'age': 30},<br/> {'city': 'B', 'age': 45}, {'city': 'A', 'age': 50}])<br/>patients.groupby('city')['age'].mean().to_dict()<br/></pre>
 sort by|<pre>df=Dataset[{<\|"a"->1,"b"->4\|>,<\|"a"->3,"b"->3\|>,<br/> <\|"a"->3,"b"->2\|>}]; df[SortBy[#["b"]&]]<br/></pre>|<pre>df=pd.DataFrame([{"a": 1, "b": 4}, {"a": 3, "b": 3},<br/> {"a": 3, "b": 2}]); df.sort_values("b")<br/></pre>
 
+## Numpy
+
+ Name | Wolfram | Python
+:---:|:---|:---
+create 2×2 array|<pre>{{1,2},{3,4}}</pre>|<pre>np.array([[1, 2], [3, 4]]).tolist()</pre>
+extract value (row1,col2)|<pre>m = {{1,2},{3,4}};<br/>m[[1,2]]<br/></pre>|<pre>m=np.array([[1,2],[3,4]])<br/>m[0,1]<br/></pre>
+extract row 1|<pre>m = {{1,2},{3,4}};<br/>m[[1]]<br/></pre>|<pre>m = np.array([[1,2],[3,4]])<br/>m[0].tolist()<br/></pre>
+extract column 2|<pre>m = {{1,2},{3,4}};<br/>m[[All,2]]<br/></pre>|<pre>m = np.array([[1,2],[3,4]])<br/>m[:,1].tolist()<br/></pre>
+select sub-array columns 1 and 2|<pre>m={{1,2,3},{3,4,5}};<br/>m[[All, {1,2}]]<br/></pre>|<pre>m = np.array([[1,2,3],[3,4,5]])<br/>m[:,[0,1]].tolist()<br/></pre>
+transpose array|<pre>m = {{1,2,3},{4,5,6}};<br/>Transpose[m]<br/></pre>|<pre>m=np.array([[1,2,3],[4,5,6]])<br/>(m.T).tolist()<br/></pre>
+matrix multiplication|<pre>m1 = {{1,2},{3,4}};<br/>m2 = {{5,6},{7,8}};<br/>m1 . m2<br/></pre>|<pre>m1 = np.array([[1,2],[3,4]])<br/>m2 = np.array([[5,6],[7,8]])<br/>np.dot(m1, m2).tolist()<br/></pre>
+filter rows|<pre>m = {{1,2},{3,4},{2,-1}};<br/>Select[m, #[[1]]>1 &]<br/></pre>|<pre>m = np.array([[1,2],[3,4],[2,-1]])<br/>m[m[:,0] > 1].tolist()<br/></pre>
+transform column (numpy)|<pre>m = {{1,2,4},{3,4,5}};<br/>m[[All,2]] = m[[All,2]]^2; m<br/></pre>|<pre>m=np.array([[1,2,4],[3,4,5]])<br/>m[:,1]=(m[:,1]**2); m.tolist()<br/></pre>
+append new column (numpy)|<pre>m = {{1,2},{3,4}};<br/>Join[m, Transpose[{m[[All,1]]+m[[All,2]]}],2]<br/></pre>|<pre>m=np.array([[1,2],[3,4]])<br/>m=np.column_stack((m, m[:,0]+m[:,1]))<br/>m.tolist()<br/></pre>
+
 ## String
 
  Name | Wolfram | Python

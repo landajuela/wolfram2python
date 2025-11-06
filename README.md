@@ -75,7 +75,7 @@ unpack a dictionary|<pre>Association["A"->1,Table[ToString[i]->i,{i,2,3}],"J"->4
  Name | Wolfram | Python
 :---:|:---|:---
 list of dicts|<pre>{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}</pre>|<pre>[{"a": 1, "b": 2},{"a": 3, "b": 4}]</pre>
-extract column from ld|<pre>d={<\|"a"->1,"b"->2,"c"->5\|>,<\|"a"->3,"b"->4\|>};d[[All,"b"]]</pre>|<pre>d = [{"a": 1, "b": 2, "c": 5},{"a": 3, "b": 4}]; [elem["b"] for elem in d]</pre>
+extract column from ld|<pre>d={<\|"a"->1,"b"->2,"c"->5\|>,<\|"a"->3,"b"->4\|>};<br/>d[[All,"b"]]<br/></pre>|<pre>d = [{"a": 1, "b": 2, "c": 5},{"a": 3, "b": 4}];<br/>[elem["b"] for elem in d]<br/></pre>
 select entry in ld|<pre>people={<\|"name"->"John","age"->25\|>,<\|"name"->"Jane","age"->30\|>};<br/>Select[people,(#["name"]=="John")&]<br/></pre>|<pre>people=[{'name': 'John', 'age': 25},{'name': 'Jane', 'age': 30}]<br/>[elem for elem in people if elem['name'] == 'John']<br/></pre>
 sort ld by entry|<pre>people={<\|"name"->"John","age"->45\|>,<\|"name"->"Jane","age"->30\|>};<br/>SortBy[people,#"age"&]<br/></pre>|<pre>people=[{'name': 'John', 'age': 45},{'name': 'Jane', 'age': 30}]<br/>sorted(people,key=lambda item : item['age'])<br/></pre>
 
@@ -144,9 +144,9 @@ break/exit loop|<pre>For[i = 1, i < 10, i++,<br/> If[i > 5, Break[]]]<br/></pre>
  Name | Wolfram | Python
 :---:|:---|:---
 dataset/dataframe|<pre>Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}]</pre>|<pre>pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])</pre>
-extract value from df|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>{df[[1,"b"]],df[[1,"b"]],df[[1]]["b"],<br/> df[[All,"b"]][1],df[[All,"b"]][[1]]}<br/></pre>|<pre>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>[df.loc[0, "b"], df.at[0, "b"], df.iloc[0]["b"],<br/> df["b"].iloc[0], df["b"].iat[0]]<br/></pre>
+extract value from df|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>{df[[1,"b"]],df[[1,"b"]],df[[1,2]],df[[1,2]],<br/>Normal[Values[df[[1]]]],Normal[Values[df[[1]]]]}<br/></pre>|<pre>df=pd.DataFrame([{"a":1, "b":2}, {"a":3, "b":4}])<br/>[df.loc[0,"b"], df.at[0,"b"],df.iloc[0,1], df.iat[0,1],<br/>df.loc[0].values.tolist(), df.iloc[0].values.tolist()]<br/></pre>
 extract column from df|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>df[All, "a"]<br/></pre>|<pre>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>list(df["a"].values)<br/></pre>
-extract multiple columns|<pre>df = Dataset[{<\|"a"->1,"b"->2,"c"->4\|>,<\|"a"->3,"b"->4,"c"->5\|>}];<br/>df[All, {"a", "b"}]<br/></pre>|<pre>df = pd.DataFrame([{"a": 1, "b": 2, "c": 3}, {"a": 3, "b": 4, "c": 5}])<br/>df[["a", "b"]]<br/></pre>
+extract multiple columns|<pre>df = Dataset[{<\|"a"->1,"b"->2,"c"->4\|>,<br/><\|"a"->3,"b"->4,"c"->5\|>}]; df[All, {"a", "b"}]<br/></pre>|<pre>df = pd.DataFrame([{"a": 1, "b": 2, "c": 3},<br/>{"a": 3, "b": 4, "c": 5}]); df[["a", "b"]]<br/></pre>
 extract row|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>df[1]<br/></pre>|<pre>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>df.iloc[0]<br/></pre>
 remove/drop columns|<pre>df = Dataset[{<\|"a"->1,"b"->2,"c"->4\|>,<\|"a"->3,"b"->4,"c"->5\|>}];<br/>df[All, KeyDrop["c"]]<br/></pre>|<pre>df=pd.DataFrame([{"a": 1, "b": 2, "c": 4}, {"a": 3, "b": 4, "c": 5}])<br/>df.drop(columns=["c"])<br/></pre>
 select/filter rows|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>df[Select[#["a"]>1&&#["b"]>1&]]<br/></pre>|<pre>df=pd.DataFrame([{"a": 1, "b": 2},{"a": 3, "b": 4},{"a": 2, "b": -1}])<br/>df[(df["a"] > 1) & (df["b"] > 1)]<br/></pre>

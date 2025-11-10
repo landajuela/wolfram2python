@@ -16,7 +16,8 @@ add to|<pre>i=2;i+=1;i</pre>|<pre>i=2;i+=1;i</pre>
 help|<pre>?Sort</pre>|<pre>help(sorted)</pre>
 null|<pre>None</pre>|<pre>None</pre>
 walrus|<pre>{{x=16},x}</pre>|<pre>[[x:=16],x]</pre>
-unpacking|<pre>f[a_,b_,c_]:={a,b,c}<br/>args={1,2};kwargs=<\|"c"->3\|>;<br/>f[Sequence@@args,kwargs["c"]]<br/></pre>|<pre>def f(a, b, c): return [a, b, c]<br/>args = [1, 2]; kwargs = {"c": 3}<br/>f(*args,**kwargs)# f(1, 2, c=3)<br/></pre>
+arg unpacking|<pre>f[a_,b_,c_]:={a,b,c}<br/>args={1,2};kwargs=<\|"c"->3\|>;<br/>f[Sequence@@args,kwargs["c"]]<br/></pre>|<pre>def f(a, b, c): return [a, b, c]<br/>args = [1, 2]; kwargs = {"c": 3}<br/>f(*args,**kwargs)# f(1, 2, c=3)<br/></pre>
+err. handling|<pre>x=4;y=0;<br/>Quiet@Check[x/y,("Err:Zero-div";$Failed)];<br/></pre>|<pre>x=4;y=0;<br/>try: x / y<br/>except ZeroDivisionError:<br/>	print("Err:Zero-div")<br/></pre>
 
 ## List
 
@@ -39,6 +40,7 @@ reverse list (slicing, out-of-place)|<pre>{1,2,3}[[-1;;1;;-1]]</pre>|<pre>[1,2,3
 reverse list (in-place)|<pre>Reverse[{1,2,3}]</pre>|<pre>l=[1,2,3];l.reverse();l</pre>
 unique in list (non-stable)|<pre>DeleteDuplicates[{9, 2, 2, 9, 6}]</pre>|<pre>list(set([9, 2, 2, 9, 6]))</pre>
 unique in list (stable)|<pre>DeleteDuplicates[{2, 2, 9, 6}]</pre>|<pre>seen = set(); [x for x in [2,2,9,6] if not (x in seen or seen.add(x))]</pre>
+sort list (basic)|<pre>l={5,3,2,6,1}; Sort[l]</pre>|<pre>l=[5,3,2,6,1]; sorted(l)</pre>
 sort list (stable, out-of-place)|<pre>words = {"apple", "bat", "banana", "car"};<br/>ReverseSortBy[words,{StringLength,(-Position[words,#][[1]]&)}]<br/></pre>|<pre>words = ["apple", "bat", "banana", "car"]<br/>sorted(words, key=len, reverse=True)<br/></pre>
 sort list (stable,in-place)|<pre>words = {"apple", "bat", "banana", "car"};<br/>ReverseSortBy[words,{StringLength,(-Position[words,#][[1]]&)}]<br/></pre>|<pre>words = ["apple", "bat", "banana", "car"]<br/>words.sort(key=len, reverse=True);words<br/></pre>
 

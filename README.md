@@ -33,7 +33,7 @@ extend list|<pre>l={2,2,9,6,7};l=Join[l,{5,6}];l</pre>|<pre>l=[2,2,9,6,7]; l.ext
 slice list|<pre>l={2,2,9,6,7};{l[[;;]],l[[1+1;;]],l[[1+1;;4]],<br/> l[[0+1;;-1-1;;2]],l[[1;;-1;;2]]}<br/></pre>|<pre>l=[2,2,9,6,7];[l[:],l[1::],l[1:3+1],<br/> l[0:-1:2],l[::2]]<br/></pre>
 join lists|<pre>{1,2}~Join~{3,4}</pre>|<pre>[1,2]+[3,4]</pre>
 zip 2 lists|<pre>Transpose[{{"a","b","c","d","e"},{2,2,9,6,7}}]</pre>|<pre>zip(["a","b","c","d","e"],[2,2,9,6,7])</pre>
-get element position|<pre>Position[{a,b,a,a,b,c,b},b]</pre>|<pre>[[i + 1] for i,v in enumerate(['a','b','a','a','b','c','b']) if v == 'b']</pre>
+get element position|<pre>Position[{a,b,a,b},b]</pre>|<pre>[[i + 1] for i,v in enumerate(['a','b','a','b']) if v == 'b']</pre>
 random sample|<pre>RandomSample[{1,2,3,4}, 2]</pre>|<pre>import random;random.sample([1,2,3,4], 2)</pre>
 reverse list (out-of-place)|<pre>Reverse[{1,2,3}]</pre>|<pre>list(reversed([1,2,3]))</pre>
 reverse list (slicing, out-of-place)|<pre>{1,2,3}[[-1;;1;;-1]]</pre>|<pre>[1,2,3][::-1]</pre>
@@ -50,6 +50,7 @@ sort list (stable,in-place)|<pre>words = {"apple", "bat", "banana", "car"};<br/>
 :---:|:---|:---
 list of lists|<pre>{{1,2},{3,4}}</pre>|<pre>[[1,2],[3,4]]</pre>
 extract column (ll)|<pre>l={{1,2},{3,4,5}};l[[All,2]]</pre>|<pre>l=[[1,2],[3,4,5]]; [row[1] for row in l]</pre>
+extract columns (ll)|<pre>cols={1,2,1};<br/>l={{1,2,3},{3,4},{5,6,7}};<br/>Table[l[[i,cols[[i]]]],{i,1,Length[l]}]<br/></pre>|<pre>cols = [1, 2, 1]<br/>l =[[1, 2, 3],[3, 4],[5, 6, 7]]<br/>[row[cols[i] - 1] for i, row in enumerate(l)]<br/></pre>
 sorted (ll)|<pre>l = {{"b", 3},{"a", 5},{"a", 4},{"b", 2}};<br/>SortBy[l, {First, Last}]<br/></pre>|<pre>l=[["b",3],["a",5],["a",4],["b",2]];<br/>sorted(l,key=lambda item : [item[0],item[1]])<br/></pre>
 flatten nested|<pre>Flatten[{{1,2},{3,4}}]</pre>|<pre>l=[[1, 2], [3, 4]]; [x for sub in l for x in sub]</pre>
 partition/chunk|<pre>Partition[{1,2,3,4,5,6,7}, UpTo[2]]</pre>|<pre>l = [1,2,3,4,5,6,7]; [l[i:i+2] for i in range(0, len(l), 2)]</pre>
@@ -146,6 +147,7 @@ break/exit loop|<pre>For[i = 1, i < 10, i++,<br/> If[i > 5, Break[]]]<br/></pre>
  Name | Wolfram | Python
 :---:|:---|:---
 dataset/dataframe|<pre>Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}]</pre>|<pre>pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])</pre>
+shape|<pre>df=Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>Dimensions[df]<br/></pre>|<pre>df=pd.DataFrame([{"a": 1,"b": 2},{"a": 3,"b": 4}])<br/>df.shape<br/></pre>
 extract value from df|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>{df[[1,"b"]],df[[1,"b"]],df[[1,2]],df[[1,2]],<br/>Normal[Values[df[[1]]]],Normal[Values[df[[1]]]]}<br/></pre>|<pre>df=pd.DataFrame([{"a":1, "b":2}, {"a":3, "b":4}])<br/>[df.loc[0,"b"], df.at[0,"b"],df.iloc[0,1], df.iat[0,1],<br/>df.loc[0].values.tolist(), df.iloc[0].values.tolist()]<br/></pre>
 extract column from df|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>df[All, "a"]<br/></pre>|<pre>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>list(df["a"].values)<br/></pre>
 extract multiple columns|<pre>df = Dataset[{<\|"a"->1,"b"->2,"c"->4\|>,<br/><\|"a"->3,"b"->4,"c"->5\|>}]; df[All, {"a", "b"}]<br/></pre>|<pre>df = pd.DataFrame([{"a": 1, "b": 2, "c": 3},<br/>{"a": 3, "b": 4, "c": 5}]); df[["a", "b"]]<br/></pre>
@@ -173,6 +175,8 @@ matrix multiplication|<pre>m1 = {{1,2},{3,4}};<br/>m2 = {{5,6},{7,8}};<br/>m1 . 
 filter rows|<pre>m = {{1,2},{3,4},{2,-1}};<br/>Select[m, #[[1]]>1 &]<br/></pre>|<pre>m = np.array([[1,2],[3,4],[2,-1]])<br/>m[m[:,0] > 1].tolist()<br/></pre>
 transform column (numpy)|<pre>m = {{1,2,4},{3,4,5}};<br/>m[[All,2]] = m[[All,2]]^2; m<br/></pre>|<pre>m=np.array([[1,2,4],[3,4,5]])<br/>m[:,1]=(m[:,1]**2); m.tolist()<br/></pre>
 append new column (numpy)|<pre>m = {{1,2},{3,4}};<br/>Join[m, Transpose[{m[[All,1]]+m[[All,2]]}],2]<br/></pre>|<pre>m=np.array([[1,2],[3,4]])<br/>m=np.column_stack((m, m[:,0]+m[:,1]))<br/>m.tolist()<br/></pre>
+multinormal|<pre>RandomVariate[MultinormalDistribution[<br/>{-2,0},{{1,0.9},{0.9,1}}],10]<br/></pre>|<pre>np.random.multivariate_normal(<br/>mean=[-2,0],cov=[[1,0.9],[0.9,1]],size=10)<br/></pre>
+stack|<pre>m1={{1,2},{3,4}};<br/>m2={{5,6},{7,8}};<br/>{Join[m1,m2],ArrayFlatten[{{m1,m2}}]}<br/></pre>|<pre>m1=np.array([[1,2],[3,4]])<br/>m2=np.array([[5,6],[7,8]])<br/>[np.vstack([m1,m2]).tolist(),<br/>np.hstack([m1,m2]).tolist()]<br/></pre>
 
 ## String
 
@@ -213,7 +217,7 @@ chaining comparisons & logic|<pre>x = 10; {0 < x < 15 && ! (x < 5 \|\| x > 20)}<
 :---:|:---|:---
 basic split|<pre>s="20s10";StringSplit[s,RegularExpression["(\d+)"]->"$1",All]</pre>|<pre>s = "20s10";re.split(r'(\d+)', s)</pre>
 basic match|<pre>StringMatchQ["hello123", RegularExpression["^[a-z]+\d+"]]</pre>|<pre>bool(re.match(r"^[a-z]+\d+", "hello123"))</pre>
-findall digits|<pre>StringCases["ID: 4567 & Code: 890", RegularExpression["\d+"]]</pre>|<pre>re.findall(r"\d+", "ID: 4567 & Code: 890")</pre>
+findall match|<pre>s="Order #1234: 3 items — IDs A45, B78, C102; date 2025-11-10;<br/>total $256.75";<br/>g=StringCases[s,RegularExpression[#1]->#2]&;<br/>{g["(\d+)","$1"],rf["\$([0-9]+\.[0-9]{2})","$1"],<br/>g["(20[0-9]{2})-(0[1-9]\|1[0-2])-(0[1-9]\|[12][0-9]\|3[01])","$1"],<br/>g["([A-Z][0-9]+)","$1"],g["Order #([0-9]+)","$1"]}<br/></pre>|<pre>s="Order #1234: 3 items — IDs A45, B78, C102; date 2025-11-10;"<br/>s+="total $256.75"<br/>g = lambda p: re.findall(rf"{p}", s)<br/>[g("(\d+)"),g("\$([0-9]+\.[0-9]{2})"),<br/>[g("(20[0-9]{2})-(0[1-9]\|1[0-2])-(0[1-9]\|[12][0-9]\|3[01])")[0][0]],<br/>g("([A-Z][0-9]+)"),g("Order #([0-9]+)")]<br/></pre>
 replace whitespace|<pre>StringReplace["The rain in Spain", RegularExpression["\s+"] -> "_"]</pre>|<pre>re.sub(r"\s+", "_", "The rain in Spain")</pre>
 email validation|<pre>StringMatchQ["alice-b@google.com",<br/> RegularExpression["^[\w\.\-]+@[\w\.\-]+\.[a-zA-Z]{2,4}$"]]<br/></pre>|<pre>bool(re.match(r"^[\w\.\-]+@[\w\.\-]+\.[a-zA-Z]{2,4}$",<br/> "alice-b@google.com"))<br/></pre>
 

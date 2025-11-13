@@ -30,7 +30,7 @@ insert to list|<pre>l={2,2,9,6,7};l=Insert[l,3,1+1];l</pre>|<pre>l=[2,2,9,6,7]; 
 pop (last) from list|<pre>l={2,2,9,6,7}; {Last[l],Drop[l,-1]}</pre>|<pre>l=[2,2,9,6,7]; [l.pop(),l]</pre>
 pop (index) from list|<pre>l={2,3,9,6,7}; {l[[2]],Delete[l, 2]}</pre>|<pre>l=[2,3,9,6,7]; [l.pop(1),l]</pre>
 extend list|<pre>l={2,2,9,6,7};l=Join[l,{5,6}];l</pre>|<pre>l=[2,2,9,6,7]; l.extend([5, 6]);l</pre>
-slice list|<pre>l={2,2,9,6,7};{l[[;;]],l[[1+1;;]],l[[1+1;;4]],<br/> l[[0+1;;-1-1;;2]],l[[1;;-1;;2]]}<br/></pre>|<pre>l=[2,2,9,6,7];[l[:],l[1::],l[1:3+1],<br/> l[0:-1:2],l[::2]]<br/></pre>
+slice list|<pre>l={2,2,9,6,7};{l[[;;]],l[[2;;]],l[[;;2]],<br/>l[[2;;4]],l[[1;;-1-1;;2]],l[[1;;-1;;2]]}<br/></pre>|<pre>l=[2,2,9,6,7];[l[:],l[1:],l[:2],<br/>l[1:3+1],l[0:-1:2],l[::2]]<br/></pre>
 join lists|<pre>{1,2}~Join~{3,4}</pre>|<pre>[1,2]+[3,4]</pre>
 zip 2 lists|<pre>Transpose[{{"a","b","c","d","e"},{2,2,9,6,7}}]</pre>|<pre>zip(["a","b","c","d","e"],[2,2,9,6,7])</pre>
 get element position|<pre>Position[{a,b,a,b},b]</pre>|<pre>[[i + 1] for i,v in enumerate(['a','b','a','b']) if v == 'b']</pre>
@@ -176,6 +176,7 @@ filter rows|<pre>m = {{1,2},{3,4},{2,-1}};<br/>Select[m, #[[1]]>1 &]<br/></pre>|
 transform column (numpy)|<pre>m = {{1,2,4},{3,4,5}};<br/>m[[All,2]] = m[[All,2]]^2; m<br/></pre>|<pre>m=np.array([[1,2,4],[3,4,5]])<br/>m[:,1]=(m[:,1]**2); m.tolist()<br/></pre>
 append new column (numpy)|<pre>m = {{1,2},{3,4}};<br/>Join[m, Transpose[{m[[All,1]]+m[[All,2]]}],2]<br/></pre>|<pre>m=np.array([[1,2],[3,4]])<br/>m=np.column_stack((m, m[:,0]+m[:,1]))<br/>m.tolist()<br/></pre>
 multinormal|<pre>RandomVariate[MultinormalDistribution[<br/>{-2,0},{{1,0.9},{0.9,1}}],10]<br/></pre>|<pre>np.random.multivariate_normal(<br/>mean=[-2,0],cov=[[1,0.9],[0.9,1]],size=10)<br/></pre>
+permutation|<pre>RandomSample[{1,2,3}]</pre>|<pre>np.random.permutation([1,2,3])</pre>
 stack|<pre>m1={{1,2},{3,4}};<br/>m2={{5,6},{7,8}};<br/>{Join[m1,m2],ArrayFlatten[{{m1,m2}}]}<br/></pre>|<pre>m1=np.array([[1,2],[3,4]])<br/>m2=np.array([[5,6],[7,8]])<br/>[np.vstack([m1,m2]).tolist(),<br/>np.hstack([m1,m2]).tolist()]<br/></pre>
 
 ## String

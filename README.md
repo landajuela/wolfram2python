@@ -7,7 +7,7 @@ Welcome to **Wolfram ↔ Python**, a quick reference guide that mirrors common W
  Name | Wolfram | Python
 :---:|:---|:---
 range|<pre>{Range[0,7],Range[0,7,2]}</pre>|<pre>[range(0,7+1),range(0,7+1,2)]</pre>
-func|<pre>f[x_,y_:2]:=x+2+y;f[2]</pre>|<pre>def f(x,y=2): return 2+x+y<br/>f(2)<br/></pre>
+func|<pre>f[x_,y_Integer:2]:=x+2+y;f[2]</pre>|<pre>def f(x,y:int=2): return 2+x+y<br/>f(2)<br/></pre>
 global|<pre>Names["Global`*"]</pre>|<pre>globals()</pre>
 print|<pre>Print["Hello world"]</pre>|<pre>print("Hello world")</pre>
 print val|<pre>Print["val="<>ToString[5]]</pre>|<pre>print(f"val={str(5)}")</pre>
@@ -25,7 +25,7 @@ err. handling|<pre>x=4;y=0;<br/>Quiet@Check[x/y,("Err:Zero-div";$Failed)];<br/><
 :---:|:---|:---
 list|<pre>{2,2,9,6,7}</pre>|<pre>[2,2,9,6,7]</pre>
 length of list|<pre>Length[{2, 2, 9, 6, 7}]</pre>|<pre>len([2,2,9,6,7])</pre>
-append to list|<pre>l={2, 2, 9, 6, 7}; AppendTo[l,2];l</pre>|<pre>l=[2,2,9,6,7]; l.append(2); l</pre>
+append to list|<pre>l={2,2,9,6,7}; AppendTo[l,2];l</pre>|<pre>l=[2,2,9,6,7]; l.append(2); l</pre>
 insert to list|<pre>l={2,2,9,6,7};l=Insert[l,3,1+1];l</pre>|<pre>l=[2,2,9,6,7]; l.insert(1,3); l</pre>
 pop (last) from list|<pre>l={2,2,9,6,7}; {Last[l],Drop[l,-1]}</pre>|<pre>l=[2,2,9,6,7]; [l.pop(),l]</pre>
 pop (index) from list|<pre>l={2,3,9,6,7}; {l[[2]],Delete[l, 2]}</pre>|<pre>l=[2,3,9,6,7]; [l.pop(1),l]</pre>
@@ -165,7 +165,7 @@ sort by|<pre>df=Dataset[{<\|"a"->1,"b"->4\|>,<\|"a"->3,"b"->3\|>,<br/> <\|"a"->3
 
  Name | Wolfram | Python
 :---:|:---|:---
-create 2×2 array|<pre>{{1,2},{3,4}}</pre>|<pre>np.array([[1, 2], [3, 4]]).tolist()</pre>
+numpy array|<pre>{{1,2},{3,4}}</pre>|<pre>np.array([[1, 2], [3, 4]]).tolist()</pre>
 extract value (row1,col2)|<pre>m = {{1,2},{3,4}};<br/>m[[1,2]]<br/></pre>|<pre>m=np.array([[1,2],[3,4]])<br/>m[0,1]<br/></pre>
 extract row 1|<pre>m = {{1,2},{3,4}};<br/>m[[1]]<br/></pre>|<pre>m = np.array([[1,2],[3,4]])<br/>m[0].tolist()<br/></pre>
 extract column 2|<pre>m = {{1,2},{3,4}};<br/>m[[All,2]]<br/></pre>|<pre>m = np.array([[1,2],[3,4]])<br/>m[:,1].tolist()<br/></pre>
@@ -178,6 +178,7 @@ append new column (numpy)|<pre>m = {{1,2},{3,4}};<br/>Join[m, Transpose[{m[[All,
 multinormal|<pre>RandomVariate[MultinormalDistribution[<br/>{-2,0},{{1,0.9},{0.9,1}}],10]<br/></pre>|<pre>np.random.multivariate_normal(<br/>mean=[-2,0],cov=[[1,0.9],[0.9,1]],size=10)<br/></pre>
 permutation|<pre>RandomSample[{1,2,3}]</pre>|<pre>np.random.permutation([1,2,3])</pre>
 stack|<pre>m1={{1,2},{3,4}};<br/>m2={{5,6},{7,8}};<br/>{Join[m1,m2],ArrayFlatten[{{m1,m2}}]}<br/></pre>|<pre>m1=np.array([[1,2],[3,4]])<br/>m2=np.array([[5,6],[7,8]])<br/>[np.vstack([m1,m2]).tolist(),<br/>np.hstack([m1,m2]).tolist()]<br/></pre>
+reshape|<pre>m={{1,2},{3,4}};<br/>{ArrayReshape[m,{1,4}],ArrayReshape[m,{4,1}]}<br/></pre>|<pre>m=np.array([[1,2],[3,4]])<br/>[m.reshape(1,4).tolist(),m.reshape(4,1).tolist()]<br/></pre>
 
 ## String
 

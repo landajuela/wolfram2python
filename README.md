@@ -180,6 +180,14 @@ permutation|<pre>RandomSample[{1,2,3}]</pre>|<pre>np.random.permutation([1,2,3])
 stack|<pre>m1={{1,2},{3,4}};<br/>m2={{5,6},{7,8}};<br/>{Join[m1,m2],ArrayFlatten[{{m1,m2}}]}<br/></pre>|<pre>m1=np.array([[1,2],[3,4]])<br/>m2=np.array([[5,6],[7,8]])<br/>[np.vstack([m1,m2]).tolist(),<br/>np.hstack([m1,m2]).tolist()]<br/></pre>
 reshape|<pre>m={{1,2},{3,4}};<br/>{ArrayReshape[m,{1,4}],ArrayReshape[m,{4,1}]}<br/></pre>|<pre>m=np.array([[1,2],[3,4]])<br/>[m.reshape(1,4).tolist(),m.reshape(4,1).tolist()]<br/></pre>
 
+## Torch
+
+ Name | Wolfram | Python
+:---:|:---|:---
+torch array|<pre>{{1,2},{3,4}}</pre>|<pre>import torch<br/>torch.tensor([[1,2],[3,4]]).tolist()<br/></pre>
+torch reshape|<pre>m={{1,2},{3,4}};<br/>{ArrayReshape[m,{1,4}],ArrayReshape[m,{4,1}],<br/>ArrayReshape[m,{1,4}],ArrayReshape[m,{4,1}]}<br/></pre>|<pre>import torch<br/>m=torch.tensor([[1,2],[3,4]])<br/>[m.reshape(1,4).tolist(),m.reshape(4,1).tolist(),<br/> m.view(1,4).tolist(),m.view(4,1).tolist()]<br/></pre>
+nn|<pre>hiddenDim=5;outputDim=1;<br/>net=NetInitialize[NetChain[{LinearLayer[hiddenDim],<br/> Ramp,LinearLayer[outputDim]},"Input"->2]];<br/>output=net[{1.0,2.0}]<br/></pre>|<pre>import torch.nn as nn<br/>hidden_dim=5;output_dim=1;<br/>net=nn.Sequential(nn.Linear(2, hidden_dim),<br/> nn.ReLU(),nn.Linear(hidden_dim, output_dim))<br/>output=net(torch.tensor([1.0, 2.0]))<br/></pre>
+
 ## String
 
  Name | Wolfram | Python

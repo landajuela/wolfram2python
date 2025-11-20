@@ -8,6 +8,7 @@ Welcome to **Wolfram ↔ Python**, a quick reference guide that mirrors common W
 :---:|:---|:---
 range|<pre>{Range[0,7],Range[0,7,2]}</pre>|<pre>[range(0,7+1),range(0,7+1,2)]</pre>
 func|<pre>f[x_,y_Integer:2]:=x+2+y;f[2]</pre>|<pre>def f(x,y:int=2): return 2+x+y<br/>f(2)<br/></pre>
+objects|<pre>l={1,2,3};<br/>f=(AppendTo[l,#])&;<br/>f[4];l<br/></pre>|<pre>l = [1,2,3]<br/>f = lambda x: l.append(x)<br/>f(4);l<br/></pre>
 global|<pre>Names["Global`*"]</pre>|<pre>globals()</pre>
 print|<pre>Print["Hello world"]</pre>|<pre>print("Hello world")</pre>
 print val|<pre>Print["val="<>ToString[5]]</pre>|<pre>print(f"val={str(5)}")</pre>
@@ -64,6 +65,7 @@ init from list|<pre>Association[{"b"2,"a"1,"c"3}]</pre>|<pre>dict([['b'
 access element in dict|<pre><\|"a"->2,"b"->2,"c"->9,"d"->6,"e"->7\|>["a"]</pre>|<pre>{"a":2,"b":2,"c":9,"d":6,"e":7}["a"]</pre>
 add or update key|<pre>d = <\|"a"->1\|>; d["b"] = 2; d</pre>|<pre>d = {"a": 1}; d["b"] = 2; d</pre>
 remove key|<pre>KeyDrop[<\|"a"->1,"b"->2\|>, "a"]</pre>|<pre>d = {"a": 1, "b": 2};d.pop("a"); d</pre>
+value apply|<pre>d=<\|"a"->{1,2},"b"->{2,3}\|>;<br/>MapApply[#2&,d]<br/></pre>|<pre>d={"a":[1,2],"b":[2,3]}<br/>{k: v[1] for k,v in d.items()}<br/></pre>
 get keys|<pre>Keys[<\|"a"->1,"b"->2\|>]</pre>|<pre>d = {"a": 1, "b": 2}; d.keys()</pre>
 get values|<pre>Values[<\|"a"->1,"b"->2\|>]</pre>|<pre>d = {"a": 1, "b": 2}; d.values()</pre>
 get key-values|<pre>d=<\|"a"->1,"b"->2\|>; MapApply[{#1,#2}&,Normal[d]]</pre>|<pre>d = {"a": 1, "b": 2}; d.items()</pre>
@@ -88,6 +90,7 @@ sort ld by entry|<pre>people={<\|"name"->"John","age"->45\|>,<\|"name"->"Jane","
 :---:|:---|:---
 initialization empty|<pre>(*No hash-set;use a list and Unique*)</pre>|<pre>s = set()</pre>
 initialization from iterable|<pre>s={1,2,2,2,3,3};s=DeleteDuplicates[s];s</pre>|<pre>s=set([1,2,2,2,3,3]);s</pre>
+set comprehension|<pre>Union[Table[elem,{elem,{2,1,1,2,3}}]]</pre>|<pre>{elem for elem in [2,1,1,2,3]}</pre>
 add element|<pre>s={1,2,2,2,3,3};s=DeleteDuplicates[s];AppendTo[s,5]</pre>|<pre>s=set([1,2,2,2,3,3]);s.add(5);s</pre>
 add multiple elements|<pre>s={1,2,2,2,3,3};s=DeleteDuplicates[s];Union[s,{5,6}]</pre>|<pre>s=set([1,2,2,2,3,3]);s.update([5,6]);s</pre>
 remove element (error if absent)|<pre>s={1,2,2,2,3,3};s=DeleteDuplicates[s];DeleteElements[s,{2}]</pre>|<pre>s=set([1,2,2,2,3,3]);s.remove(2);s</pre>
@@ -186,7 +189,8 @@ reshape|<pre>m={{1,2},{3,4}};<br/>{ArrayReshape[m,{1,4}],ArrayReshape[m,{4,1}]}<
 :---:|:---|:---
 torch array|<pre>{{1,2},{3,4}}</pre>|<pre>import torch<br/>torch.tensor([[1,2],[3,4]]).tolist()<br/></pre>
 torch reshape|<pre>m={{1,2},{3,4}};<br/>{ArrayReshape[m,{1,4}],ArrayReshape[m,{4,1}],<br/>ArrayReshape[m,{1,4}],ArrayReshape[m,{4,1}]}<br/></pre>|<pre>import torch<br/>m=torch.tensor([[1,2],[3,4]])<br/>[m.reshape(1,4).tolist(),m.reshape(4,1).tolist(),<br/> m.view(1,4).tolist(),m.view(4,1).tolist()]<br/></pre>
-nn|<pre>hiddenDim=5;outputDim=1;<br/>net=NetInitialize[NetChain[{LinearLayer[hiddenDim],<br/> Ramp,LinearLayer[outputDim]},"Input"->2]];<br/>output=net[{1.0,2.0}]<br/></pre>|<pre>import torch.nn as nn<br/>hidden_dim=5;output_dim=1;<br/>net=nn.Sequential(nn.Linear(2, hidden_dim),<br/> nn.ReLU(),nn.Linear(hidden_dim, output_dim))<br/>output=net(torch.tensor([1.0, 2.0]))<br/></pre>
+torch nn|<pre>hiddenDim=5;outputDim=1;<br/>net=NetInitialize[NetChain[{LinearLayer[hiddenDim],<br/> Ramp,LinearLayer[outputDim]},"Input"->2]];<br/>output=net[{1.0,2.0}]<br/></pre>|<pre>import torch.nn as nn<br/>hidden_dim=5;output_dim=1;<br/>net=nn.Sequential(nn.Linear(2, hidden_dim),<br/> nn.ReLU(),nn.Linear(hidden_dim, output_dim))<br/>output=net(torch.tensor([1.0, 2.0]))<br/></pre>
+gather|<pre>piLogits={{{1.2,0.5},{0.1,-1.0}}};<br/>labels={{1,2}}; logProbs=Log[SoftmaxLayer[-1]/@piLogits];Table[logProbs[[b,i,labels[[b,i]]]],<br/>{b,1,Length[labels]},{i,1,Length[labels[[b]]]}]<br/></pre>|<pre>import torch<br/>import torch.nn.functional as F<br/>pi_logits=torch.tensor([[[1.2,0.5],[0.1,-1.0]]])<br/>labels=torch.tensor([[0,1]])<br/>log_probs=F.log_softmax(pi_logits, dim=-1)<br/>pi_log_probs=torch.gather(log_probs,dim=-1,<br/>    index=labels.unsqueeze(-1)).squeeze(-1)<br/>pi_log_probs.tolist()<br/></pre>
 
 ## String
 

@@ -50,6 +50,7 @@ sort list (stable,in-place)|<pre>words = {"apple", "bat", "banana", "car"};<br/>
  Name | Wolfram | Python
 :---:|:---|:---
 list of lists|<pre>{{1,2},{3,4}}</pre>|<pre>[[1,2],[3,4]]</pre>
+comprehension (ll)|<pre>Table[r+c,{r,0,2},{c,0,r-1}]</pre>|<pre>[[r+c for c in range(r)] for r in range(3)]</pre>
 extract column (ll)|<pre>l={{1,2},{3,4,5}};l[[All,2]]</pre>|<pre>l=[[1,2],[3,4,5]]; [row[1] for row in l]</pre>
 extract columns (ll)|<pre>cols={1,2,1};<br/>l={{1,2,3},{3,4},{5,6,7}};<br/>Table[l[[i,cols[[i]]]],{i,1,Length[l]}]<br/></pre>|<pre>cols = [1, 2, 1]<br/>l =[[1, 2, 3],[3, 4],[5, 6, 7]]<br/>[row[cols[i] - 1] for i, row in enumerate(l)]<br/></pre>
 sorted (ll)|<pre>l = {{"b", 3},{"a", 5},{"a", 4},{"b", 2}};<br/>SortBy[l, {First, Last}]<br/></pre>|<pre>l=[["b",3],["a",5],["a",4],["b",2]];<br/>sorted(l,key=lambda item : [item[0],item[1]])<br/></pre>
@@ -155,9 +156,9 @@ extract value from df|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>
 extract column from df|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>df[All, "a"]<br/></pre>|<pre>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>list(df["a"].values)<br/></pre>
 extract multiple columns|<pre>df = Dataset[{<\|"a"->1,"b"->2,"c"->4\|>,<br/><\|"a"->3,"b"->4,"c"->5\|>}]; df[All, {"a", "b"}]<br/></pre>|<pre>df = pd.DataFrame([{"a": 1, "b": 2, "c": 3},<br/>{"a": 3, "b": 4, "c": 5}]); df[["a", "b"]]<br/></pre>
 extract row|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>df[1]<br/></pre>|<pre>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>df.iloc[0]<br/></pre>
-remove/drop columns|<pre>df = Dataset[{<\|"a"->1,"b"->2,"c"->4\|>,<\|"a"->3,"b"->4,"c"->5\|>}];<br/>df[All, KeyDrop["c"]]<br/></pre>|<pre>df=pd.DataFrame([{"a": 1, "b": 2, "c": 4}, {"a": 3, "b": 4, "c": 5}])<br/>df.drop(columns=["c"])<br/></pre>
-select/filter rows|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>df[Select[#["a"]>1&&#["b"]>1&]]<br/></pre>|<pre>df=pd.DataFrame([{"a": 1, "b": 2},{"a": 3, "b": 4},{"a": 2, "b": -1}])<br/>df[(df["a"] > 1) & (df["b"] > 1)]<br/></pre>
-transform column|<pre>df = Dataset[{<\|"a"->1,"b"->2,"c"->4\|>,<\|"a"->3,"b"->4,"c"->5\|>}];<br/>df[All, Association[#,"b"->(#["b"]^2)]&]<br/></pre>|<pre>df=pd.DataFrame([{"a": 1, "b": 2, "c": 4}, {"a": 3, "b": 4, "c": 5}])<br/>df["b"] = df["b"].apply(lambda x:x**2); df<br/></pre>
+remove/drop columns|<pre>df = Dataset[{<\|"a"->1,"b"->2,"c"->4\|>,<\|"a"->3,"b"->4,"c"->5\|>}];<br/>df[All, KeyDrop["c"]]<br/></pre>|<pre>df=pd.DataFrame([{"a":1,"b":2,"c":4},{"a":3,"b":4,"c":5}])<br/>df.drop(columns=["c"])<br/></pre>
+select/filter rows|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>df[Select[#["a"]>1&&#["b"]>1&]]<br/></pre>|<pre>df=pd.DataFrame([{"a":1,"b":2},{"a":3,"b":4},{"a":2,"b":-1}])<br/>df[(df["a"]>1) & (df["b"]>1)]<br/></pre>
+transform column|<pre>df = Dataset[{<\|"a"->1,"b"->2,"c"->4\|>,<\|"a"->3,"b"->4,"c"->5\|>}];<br/>df[All, Association[#,"b"->(#["b"]^2)]&]<br/></pre>|<pre>df=pd.DataFrame([{"a":1,"b":2,"c":4},{"a":3,"b":4,"c":5}])<br/>df["b"]=df["b"].apply(lambda x:x**2);df<br/></pre>
 append vectorized column|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>df[All, Append[#, "c" -> #a + #b] &]<br/></pre>|<pre>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>df["c"] = df["a"] + df["b"]; df<br/></pre>
 append new column|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>df[All, Append[#, "a_sq" -> (#a)^2] &]<br/></pre>|<pre>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>df["a_sq"] = df["a"].apply(lambda x: x**2);df<br/></pre>
 method chaining|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>df[Select[#a>1&]][All,Append[#,"d"->#a*#b]&][All,{"b","d"}]<br/></pre>|<pre>df = pd.DataFrame([{"a":1,"b":2},{"a":3,"b":4}])<br/>(df[df["a"]>1].assign(d=lambda x:x["a"]*x["b"]).loc[:,["b","d"]])<br/></pre>

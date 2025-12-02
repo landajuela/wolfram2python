@@ -163,7 +163,7 @@ append vectorized column|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4
 append new column|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>df[All, Append[#, "a_sq" -> (#a)^2] &]<br/></pre>|<pre>df = pd.DataFrame([{"a": 1, "b": 2}, {"a": 3, "b": 4}])<br/>df["a_sq"] = df["a"].apply(lambda x: x**2);df<br/></pre>
 method chaining|<pre>df = Dataset[{<\|"a"->1,"b"->2\|>,<\|"a"->3,"b"->4\|>}];<br/>df[Select[#a>1&]][All,Append[#,"d"->#a*#b]&][All,{"b","d"}]<br/></pre>|<pre>df = pd.DataFrame([{"a":1,"b":2},{"a":3,"b":4}])<br/>(df[df["a"]>1].assign(d=lambda x:x["a"]*x["b"]).loc[:,["b","d"]])<br/></pre>
 group by|<pre>patients=Dataset[{<\|"city"->"A","age"->30.\|>,<br/><\|"city"->"B","age"->45.\|>,<\|"city"->"A","age"->50.\|>}];<br/>Normal[patients[GroupBy["city"],Mean,"age"]]<br/></pre>|<pre>patients=pd.DataFrame([{'city': 'A', 'age': 30},<br/> {'city': 'B', 'age': 45}, {'city': 'A', 'age': 50}])<br/>patients.groupby('city')['age'].mean().to_dict()<br/></pre>
-sort by|<pre>df=Dataset[{<\|"a"->1,"b"->4\|>,<\|"a"->3,"b"->3\|>,<br/> <\|"a"->3,"b"->2\|>}]; df[SortBy[#["b"]&]]<br/></pre>|<pre>df=pd.DataFrame([{"a": 1, "b": 4}, {"a": 3, "b": 3},<br/> {"a": 3, "b": 2}]); df.sort_values("b")<br/></pre>
+sort by|<pre>df=Dataset[{<\|"a"->1,"b"->4\|>,<\|"a"->3,"b"->3\|>,<br/> <\|"a"->3,"b"->2\|>}]; df[SortBy[#["b"]&]]<br/></pre>|<pre>df=pd.DataFrame([{"a": 1, "b": 4}, {"a": 3, "b": 3},<br/> {"a": 3, "b": 2}]); df.sort_values(by="b")<br/></pre>
 
 ## Numpy
 

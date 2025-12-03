@@ -201,7 +201,10 @@ string format|<pre>ToString[StringForm["The values are x=`` and y=``.", 5, 10]]<
 string join|<pre>StringRiffle[{2, 2, 9, 6, 7}, " "]</pre>|<pre>' '.join(["2", "2", "9", "6", "7"])</pre>
 substring|<pre>StringTake["abcdef", {2,4}]</pre>|<pre>"abcdef"[1:4]</pre>
 string length|<pre>StringLength["hello"]</pre>|<pre>len("hello")</pre>
-uppercase|<pre>ToUpperCase["hello"]</pre>|<pre>"hello".upper()</pre>
+string check|<pre>{LetterQ["a"],DigitQ["5"]}</pre>|<pre>["a".isalpha(),"5".isdigit()]</pre>
+string case|<pre>{ToUpperCase["hello"],Capitalize["hello"]}</pre>|<pre>["hello".upper(),"hello".capitalize()]</pre>
+string padding|<pre>{StringPadLeft["42",5,"0"],StringPadRight["left",10,"-"],StringPadLeft["right",10,"-"]}</pre>|<pre>["42".zfill(5),"left".ljust(10, "-"),"right".rjust(10, "-")]</pre>
+string split|<pre>{StringSplit["a,b,,c", ","],StringSplit["line1<br>line2", "<br>"]}</pre>|<pre>["a,b,,c".split(","),"line1<br>line2".splitlines()]</pre>
 replace substring|<pre>StringReplace["a_b_c", "_"->"-"]</pre>|<pre>"a_b_c".replace("_","-")</pre>
 string starts|<pre>{StringStartsQ["beach", "_"],StringStartsQ["beach", "b"]}</pre>|<pre>["beach".startswith('_'),"beach".startswith('b')]</pre>
 sort|<pre>sl={"s2","s10","s50","a"};<br/>SortBy[sl,StringCases[#,x:(DigitCharacter..\|LetterCharacter..):>If[<br/>StringMatchQ[x,DigitCharacter..],ToExpression[x],ToLowerCase[x]]]&]<br/></pre>|<pre>import re;sl=["s2","s10","s50","a"];<br/>sorted(sl, key=lambda s : [int(t) if t.isdigit() else t.lower()<br/> for t in re.split(r'(\d+)', s)])<br/></pre>

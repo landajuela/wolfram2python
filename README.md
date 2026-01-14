@@ -175,7 +175,7 @@ extract row 1|<pre>m = {{1,2},{3,4}};<br/>m[[1]]<br/></pre>|<pre>m = np.array([[
 extract column 2|<pre>m = {{1,2},{3,4}};<br/>m[[All,2]]<br/></pre>|<pre>m = np.array([[1,2],[3,4]])<br/>m[:,1].tolist()<br/></pre>
 select sub-array columns 1 and 2|<pre>m={{1,2,3},{3,4,5}};<br/>m[[All, {1,2}]]<br/></pre>|<pre>m = np.array([[1,2,3],[3,4,5]])<br/>m[:,[0,1]].tolist()<br/></pre>
 transpose array|<pre>m = {{1,2,3},{4,5,6}};<br/>Transpose[m]<br/></pre>|<pre>m=np.array([[1,2,3],[4,5,6]])<br/>(m.T).tolist()<br/></pre>
-matrix multiplication|<pre>m1 = {{1,2},{3,4}};<br/>m2 = {{5,6},{7,8}};<br/>m1 . m2<br/></pre>|<pre>m1 = np.array([[1,2],[3,4]])<br/>m2 = np.array([[5,6],[7,8]])<br/>np.dot(m1, m2).tolist()<br/></pre>
+matrix multiplication|<pre>m1 = {{1,2},{3,4}};<br/>m2 = {{5,6},{7,8}};<br/>{Dot[m1,m2], m1 . m2}<br/></pre>|<pre>m1 = np.array([[1,2],[3,4]])<br/>m2 = np.array([[5,6],[7,8]])<br/>[np.dot(m1, m2).tolist(), (m1 @ m2).tolist()]<br/></pre>
 filter rows|<pre>m = {{1,2},{3,4},{2,-1}};<br/>Select[m, #[[1]]>1 &]<br/></pre>|<pre>m = np.array([[1,2],[3,4],[2,-1]])<br/>m[m[:,0] > 1].tolist()<br/></pre>
 transform column (numpy)|<pre>m = {{1,2,4},{3,4,5}};<br/>m[[All,2]] = m[[All,2]]^2; m<br/></pre>|<pre>m=np.array([[1,2,4],[3,4,5]])<br/>m[:,1]=(m[:,1]**2); m.tolist()<br/></pre>
 append new column (numpy)|<pre>m = {{1,2},{3,4}};<br/>Join[m, Transpose[{m[[All,1]]+m[[All,2]]}],2]<br/></pre>|<pre>m=np.array([[1,2],[3,4]])<br/>m=np.column_stack((m, m[:,0]+m[:,1]))<br/>m.tolist()<br/></pre>
@@ -191,7 +191,7 @@ reshape|<pre>m={{1,2},{3,4}};<br/>{ArrayReshape[m,{1,4}],ArrayReshape[m,{4,1}]}<
 torch array|<pre>{{1,2},{3,4}}</pre>|<pre>import torch<br/>torch.tensor([[1,2],[3,4]]).tolist()<br/></pre>
 torch reshape|<pre>m={{1,2},{3,4}};<br/>{ArrayReshape[m,{1,4}],ArrayReshape[m,{4,1}],<br/>ArrayReshape[m,{1,4}],ArrayReshape[m,{4,1}]}<br/></pre>|<pre>import torch<br/>m=torch.tensor([[1,2],[3,4]])<br/>[m.reshape(1,4).tolist(),m.reshape(4,1).tolist(),<br/> m.view(1,4).tolist(),m.view(4,1).tolist()]<br/></pre>
 torch nn|<pre>hiddenDim=5;outputDim=1;<br/>net=NetInitialize[NetChain[{LinearLayer[hiddenDim],<br/> Ramp,LinearLayer[outputDim]},"Input"->2]];<br/>output=net[{1.0,2.0}]<br/></pre>|<pre>import torch.nn as nn<br/>hidden_dim=5;output_dim=1;<br/>net=nn.Sequential(nn.Linear(2, hidden_dim),<br/> nn.ReLU(),nn.Linear(hidden_dim, output_dim))<br/>output=net(torch.tensor([1.0, 2.0]))<br/></pre>
-gather|<pre>piLogits={{{1.2,0.5},{0.1,-1.0}}};<br/>labels={{1,2}}; logProbs=Log[SoftmaxLayer[-1]/@piLogits];Table[logProbs[[b,i,labels[[b,i]]]],<br/>{b,1,Length[labels]},{i,1,Length[labels[[b]]]}]<br/></pre>|<pre>import torch<br/>import torch.nn.functional as F<br/>pi_logits=torch.tensor([[[1.2,0.5],[0.1,-1.0]]])<br/>labels=torch.tensor([[0,1]])<br/>log_probs=F.log_softmax(pi_logits, dim=-1)<br/>pi_log_probs=torch.gather(log_probs,dim=-1,<br/>    index=labels.unsqueeze(-1)).squeeze(-1)<br/>pi_log_probs.tolist()<br/></pre>
+gather|<pre>piLogits={{{1.2,0.5},{0.1,-1.0}}};<br/>labels={{1,2}};<br/>logProbs=Log[SoftmaxLayer[-1]/@piLogits];<br/>Table[logProbs[[b,i,labels[[b,i]]]],<br/>{b,1,Length[labels]},{i,1,Length[labels[[b]]]}]<br/></pre>|<pre>import torch<br/>import torch.nn.functional as F<br/>pi_logits=torch.tensor([[[1.2,0.5],[0.1,-1.0]]])<br/>labels=torch.tensor([[0,1]])<br/>log_probs=F.log_softmax(pi_logits, dim=-1)<br/>pi_log_probs=torch.gather(log_probs,dim=-1,<br/>index=labels.unsqueeze(-1)).squeeze(-1)<br/>pi_log_probs.tolist()<br/></pre>
 
 ## String
 
@@ -203,7 +203,8 @@ substring|<pre>StringTake["abcdef", {2,4}]</pre>|<pre>"abcdef"[1:4]</pre>
 string length|<pre>StringLength["hello"]</pre>|<pre>len("hello")</pre>
 string check|<pre>{LetterQ["a"],DigitQ["5"]}</pre>|<pre>["a".isalpha(),"5".isdigit()]</pre>
 string case|<pre>{ToUpperCase["hello"],Capitalize["hello"]}</pre>|<pre>["hello".upper(),"hello".capitalize()]</pre>
-string padding|<pre>{StringPadLeft["42",5,"0"],StringPadRight["left",10,"-"],StringPadLeft["right",10,"-"]}</pre>|<pre>["42".zfill(5),"left".ljust(10, "-"),"right".rjust(10, "-")]</pre>
+string padding|<pre>{StringPadLeft["42",5,"0"],StringPadRight["left",10,"-"],
+StringPadLeft["right",10,"-"]}</pre>|<pre>["42".zfill(5),"left".ljust(10, "-"),"right".rjust(10, "-")]</pre>
 string split|<pre>{StringSplit["a,b,,c", ","],StringSplit["line1<br>line2", "<br>"]}</pre>|<pre>["a,b,,c".split(","),"line1<br>line2".splitlines()]</pre>
 replace substring|<pre>StringReplace["a_b_c", "_"->"-"]</pre>|<pre>"a_b_c".replace("_","-")</pre>
 string starts|<pre>{StringStartsQ["beach", "_"],StringStartsQ["beach", "b"]}</pre>|<pre>["beach".startswith('_'),"beach".startswith('b')]</pre>

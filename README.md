@@ -19,6 +19,11 @@ null|<pre>None</pre>|<pre>None</pre>
 walrus|<pre>{{x=16},x}</pre>|<pre>[[x:=16],x]</pre>
 arg unpacking|<pre>f[a_,b_,c_]:={a,b,c}<br/>args={1,2};kwargs=<\|"c"->3\|>;<br/>f[Sequence@@args,kwargs["c"]]<br/></pre>|<pre>def f(a, b, c): return [a, b, c]<br/>args = [1, 2]; kwargs = {"c": 3}<br/>f(*args,**kwargs)# f(1, 2, c=3)<br/></pre>
 err. handling|<pre>x=4;y=0;<br/>Quiet@Check[x/y,("Err:Zero-div";$Failed)];<br/></pre>|<pre>x=4;y=0;<br/>try: x / y<br/>except ZeroDivisionError:<br/>	print("Err:Zero-div")<br/></pre>
+dir|<pre>Names["Global`*"]</pre>|<pre>dir()</pre>
+dir obj|<pre>Attributes[List]
+Options[List]</pre>|<pre>dir(list)</pre>
+type|<pre>Head[expr]</pre>|<pre>type(obj)</pre>
+isinstance|<pre>{MatchQ[5, _Integer],<br/>MatchQ["hi", _String]}<br/></pre>|<pre>[isinstance(5, int),<br/>isinstance("hi", str)]<br/></pre>
 
 ## List
 
@@ -236,7 +241,7 @@ chaining comparisons & logic|<pre>x = 10; {0 < x < 15 && ! (x < 5 \|\| x > 20)}<
 :---:|:---|:---
 basic split|<pre>s="20s10";StringSplit[s,RegularExpression["(\d+)"]->"$1",All]</pre>|<pre>s = "20s10";re.split(r'(\d+)', s)</pre>
 basic match|<pre>StringMatchQ["hello123", RegularExpression["^[a-z]+\d+"]]</pre>|<pre>bool(re.match(r"^[a-z]+\d+", "hello123"))</pre>
-findall match|<pre>s="Order #1234: 3 items — IDs A45, B78, C102; date 2025-11-10;<br/>total $256.75";<br/>g=StringCases[s,RegularExpression[#1]->#2]&;<br/>{g["(\d+)","$1"],rf["\$([0-9]+\.[0-9]{2})","$1"],<br/>g["(20[0-9]{2})-(0[1-9]\|1[0-2])-(0[1-9]\|[12][0-9]\|3[01])","$1"],<br/>g["([A-Z][0-9]+)","$1"],g["Order #([0-9]+)","$1"]}<br/></pre>|<pre>s="Order #1234: 3 items — IDs A45, B78, C102; date 2025-11-10;"<br/>s+="total $256.75"<br/>g = lambda p: re.findall(rf"{p}", s)<br/>[g("(\d+)"),g("\$([0-9]+\.[0-9]{2})"),<br/>[g("(20[0-9]{2})-(0[1-9]\|1[0-2])-(0[1-9]\|[12][0-9]\|3[01])")[0][0]],<br/>g("([A-Z][0-9]+)"),g("Order #([0-9]+)")]<br/></pre>
+findall match|<pre>s="Order #1234: 3 items — IDs A45, B78, C102; date 2025-11-10;<br/>total $256.75";<br/>g=StringCases[s,RegularExpression[#1]->#2]&;<br/>{g["(\d+)","$1"],g["\$([0-9]+\.[0-9]{2})","$1"],<br/>g["(20[0-9]{2})-(0[1-9]\|1[0-2])-(0[1-9]\|[12][0-9]\|3[01])","$1"],<br/>g["([A-Z][0-9]+)","$1"],g["Order #([0-9]+)","$1"]}<br/></pre>|<pre>s="Order #1234: 3 items — IDs A45, B78, C102; date 2025-11-10;"<br/>s+="total $256.75"<br/>g = lambda p: re.findall(rf"{p}", s)<br/>[g("(\d+)"),g("\$([0-9]+\.[0-9]{2})"),<br/>[g("(20[0-9]{2})-(0[1-9]\|1[0-2])-(0[1-9]\|[12][0-9]\|3[01])")[0][0]],<br/>g("([A-Z][0-9]+)"),g("Order #([0-9]+)")]<br/></pre>
 replace whitespace|<pre>StringReplace["The rain in Spain", RegularExpression["\s+"] -> "_"]</pre>|<pre>re.sub(r"\s+", "_", "The rain in Spain")</pre>
 email validation|<pre>StringMatchQ["alice-b@google.com",<br/> RegularExpression["^[\w\.\-]+@[\w\.\-]+\.[a-zA-Z]{2,4}$"]]<br/></pre>|<pre>bool(re.match(r"^[\w\.\-]+@[\w\.\-]+\.[a-zA-Z]{2,4}$",<br/> "alice-b@google.com"))<br/></pre>
 
